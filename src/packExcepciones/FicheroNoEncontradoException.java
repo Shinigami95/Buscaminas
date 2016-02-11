@@ -1,4 +1,4 @@
-package Excepciones;
+package packExcepciones;
 
 public class FicheroNoEncontradoException {
 

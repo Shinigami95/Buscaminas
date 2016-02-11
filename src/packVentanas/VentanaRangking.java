@@ -1,4 +1,4 @@
-package Ventanas;
+package packVentanas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

@@ -1,4 +1,4 @@
-package Modelo;
+package packModelo;
 
 public class Buscaminas {
 
