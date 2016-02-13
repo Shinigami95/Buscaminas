@@ -11,6 +11,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VentanaBuscaminas extends JFrame {
 
@@ -19,8 +20,8 @@ public class VentanaBuscaminas extends JFrame {
 	private JLabel label;
 	private JLabel label_1;
 	private JButton button;
-	private JLabel label_2;
-	private JLabel label_3;
+	private JLabel lblTiempo;
+	private JLabel lblTiempo_1;
 	private JPanel panelMatriz;
 
 	/**
@@ -61,25 +62,23 @@ public class VentanaBuscaminas extends JFrame {
 			panelRestart.setPreferredSize(new Dimension(100, 65));
 			GroupLayout gl_panelRestart = new GroupLayout(panelRestart);
 			gl_panelRestart.setHorizontalGroup(
-				gl_panelRestart.createParallelGroup(Alignment.LEADING)
-					.addGroup(Alignment.TRAILING, gl_panelRestart.createSequentialGroup()
-						.addContainerGap(34, Short.MAX_VALUE)
+				gl_panelRestart.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panelRestart.createSequentialGroup()
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(getLabel())
 						.addGap(6)
 						.addComponent(getLabel_1())
 						.addGap(10)
 						.addComponent(getButton(), GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 						.addGap(10)
-						.addGroup(gl_panelRestart.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLabel_2(), GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_panelRestart.createSequentialGroup()
-								.addGap(73)
-								.addComponent(getLabel_3(), GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)))
-						.addContainerGap())
+						.addComponent(getLblTiempo(), GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getLblTiempo_1(), GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+						.addGap(76))
 			);
 			gl_panelRestart.setVerticalGroup(
-				gl_panelRestart.createParallelGroup(Alignment.LEADING)
-					.addGroup(Alignment.TRAILING, gl_panelRestart.createSequentialGroup()
+				gl_panelRestart.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panelRestart.createSequentialGroup()
 						.addContainerGap(22, Short.MAX_VALUE)
 						.addGroup(gl_panelRestart.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_panelRestart.createSequentialGroup()
@@ -91,9 +90,9 @@ public class VentanaBuscaminas extends JFrame {
 							.addComponent(getButton())
 							.addGroup(gl_panelRestart.createSequentialGroup()
 								.addGap(4)
-								.addGroup(gl_panelRestart.createParallelGroup(Alignment.LEADING)
-									.addComponent(getLabel_2())
-									.addComponent(getLabel_3()))))
+								.addGroup(gl_panelRestart.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getLblTiempo())
+									.addComponent(getLblTiempo_1()))))
 						.addGap(20))
 			);
 			panelRestart.setLayout(gl_panelRestart);
@@ -118,17 +117,17 @@ public class VentanaBuscaminas extends JFrame {
 		}
 		return button;
 	}
-	private JLabel getLabel_2() {
-		if (label_2 == null) {
-			label_2 = new JLabel("NumBombas: ");
+	private JLabel getLblTiempo() {
+		if (lblTiempo == null) {
+			lblTiempo = new JLabel("Tiempo: ");
 		}
-		return label_2;
+		return lblTiempo;
 	}
-	private JLabel getLabel_3() {
-		if (label_3 == null) {
-			label_3 = new JLabel("NumBombasPuestas");
+	private JLabel getLblTiempo_1() {
+		if (lblTiempo_1 == null) {
+			lblTiempo_1 = new JLabel("Tiempo");
 		}
-		return label_3;
+		return lblTiempo_1;
 	}
 	private JPanel getPanelMatriz() {
 		if (panelMatriz == null) {
