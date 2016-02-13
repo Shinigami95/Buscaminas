@@ -1,5 +1,9 @@
 package packExcepciones;
 
-public class FicheroNoEncontradoException {
+public class FicheroNoEncontradoException extends Exception{
+	
+	public FicheroNoEncontradoException() {
+		super();
+	}
 
 }
