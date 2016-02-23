@@ -6,10 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.util.Vector;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -24,6 +30,8 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel label_1;
 	private JLabel label_2;
 	private JButton btnRanking;
+	private JButton buttonJugar;
+	private Controlador controlador;
 
 	/**
 	 * Launch the application.
@@ -55,31 +63,37 @@ public class VentanaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(147)
-					.addComponent(getLabel_2(), GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(112)
-					.addComponent(getLabel_1(), GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-					.addGap(10)
-					.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(112)
-					.addComponent(getLabel())
-					.addGap(29)
-					.addComponent(getComboBox(), GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(309, Short.MAX_VALUE)
-					.addComponent(getBtnRanking(), GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-					.addGap(24))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(112)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(getLabel_1(), GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(getLabel())
+									.addGap(29)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(getComboBox(), GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+											.addGap(10)
+											.addComponent(getButtonJugar(), GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+											.addComponent(getBtnRanking(), GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))))))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(139)
+							.addComponent(getLabel_2(), GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(31)
+					.addGap(35)
 					.addComponent(getLabel_2())
-					.addGap(22)
+					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
@@ -92,14 +106,19 @@ public class VentanaPrincipal extends JFrame {
 							.addComponent(getLabel()))
 						.addComponent(getComboBox(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-					.addComponent(getBtnRanking())
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(getBtnRanking())
+						.addComponent(getButtonJugar()))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
-			comboBox = new JComboBox();
+			Vector<Integer> vec = new Vector<Integer>();
+			for(int i=1;i<4;i++){
+			vec.addElement(i);}
+			comboBox = new JComboBox<Integer>(vec);
 		}
 		return comboBox;
 	}
@@ -132,7 +151,42 @@ public class VentanaPrincipal extends JFrame {
 	private JButton getBtnRanking() {
 		if (btnRanking == null) {
 			btnRanking = new JButton("Ranking");
+			btnRanking.addActionListener(getControlador());
+			btnRanking.setActionCommand("PressRanking");
 		}
 		return btnRanking;
 	}
+	
+	private JButton getButtonJugar() {
+		if (buttonJugar == null) {
+			buttonJugar = new JButton("Jugar");
+			buttonJugar.addActionListener(getControlador());
+			buttonJugar.setActionCommand("PressJugar");
+		}
+		return buttonJugar;
+	}
+	
+	private Controlador getControlador(){
+		if (controlador==null){
+			controlador=new Controlador();
+		}
+		return controlador;
+	}
+	
+	private class Controlador extends WindowAdapter implements ActionListener{
+	
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if(e.getActionCommand().equals("PressJugar")){
+				
+			}
+			else if (e.getActionCommand().equals("PressRanking")){
+				
+			}
+		}
+		
+	}
+	
+	
 }

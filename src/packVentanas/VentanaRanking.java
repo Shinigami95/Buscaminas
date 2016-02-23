@@ -13,7 +13,7 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class VentanaRangking extends JFrame {
+public class VentanaRanking extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblRanking;
@@ -26,7 +26,7 @@ public class VentanaRangking extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaRangking frame = new VentanaRangking();
+					VentanaRanking frame = new VentanaRanking();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +38,7 @@ public class VentanaRangking extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRangking() {
+	public VentanaRanking() {
 		initialize();
 	}
 	private void initialize() {
