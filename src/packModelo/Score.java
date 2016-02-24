@@ -10,7 +10,7 @@ public class Score {
 	}
 
 
-	public Score(int pP) {
+	public void setScore(int pP) {
 		this.puntuacion = pP;
 		
 	}

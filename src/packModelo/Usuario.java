@@ -3,26 +3,19 @@ package packModelo;
 public class Usuario {
 	
 	private String nombre;
-	private int puntos;
+	private Score puntos;
 	
-	public Usuario(String pNombre, int pPuntos){
-		this.setNombre(pNombre);
-		this.setPuntos(pPuntos);
+	public Usuario(String pNombre,int puntos){
+		this.nombre=pNombre;
+		this.puntos.setScore(puntos);
 	}
 
 	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public int getPuntos() {
+	public Score getPuntos() {
 		return puntos;
 	}
 
-	public void setPuntos(int puntos) {
-		this.puntos = puntos;
-	}
 }
