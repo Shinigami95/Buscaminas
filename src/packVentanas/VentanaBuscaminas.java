@@ -23,27 +23,16 @@ public class VentanaBuscaminas extends JFrame {
 	private JLabel lblTiempo;
 	private JLabel lblTiempo_1;
 	private JPanel panelMatriz;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaBuscaminas frame = new VentanaBuscaminas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private static VentanaBuscaminas ventana;
+	
+	public static VentanaBuscaminas getVentana(){
+		if(ventana==null){
+			ventana=new VentanaBuscaminas();
+		}
+		return ventana;
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public VentanaBuscaminas() {
+	private VentanaBuscaminas() {
 		initialize();
 	}
 	private void initialize() {

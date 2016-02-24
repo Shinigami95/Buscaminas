@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Vector;
 
 import javax.swing.JTextField;
@@ -32,31 +33,25 @@ public class VentanaPrincipal extends JFrame {
 	private JButton btnRanking;
 	private JButton buttonJugar;
 	private Controlador controlador;
+	private static VentanaPrincipal ventana;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+	public static VentanaPrincipal getVentana(){
+		if(ventana==null){
+			ventana=new VentanaPrincipal();
+		}
+		return ventana;
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VentanaPrincipal() {
+	
+	public void visible(boolean f){
+		ventana.setVisible(f);
+	}
+	
+	private VentanaPrincipal() {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addWindowListener(getControlador());
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -115,10 +110,10 @@ public class VentanaPrincipal extends JFrame {
 	}
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
-			Vector<Integer> vec = new Vector<Integer>();
+			Vector<String> vec = new Vector<String>();
 			for(int i=1;i<4;i++){
-			vec.addElement(i);}
-			comboBox = new JComboBox<Integer>(vec);
+			vec.addElement(Integer.toString(i));}
+			comboBox = new JComboBox<String>(vec);
 		}
 		return comboBox;
 	}
@@ -174,12 +169,16 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	private class Controlador extends WindowAdapter implements ActionListener{
-	
+		
+		@Override
+		public void windowClosing(WindowEvent e) {
+			System.exit(0);
+		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand().equals("PressJugar")){
-				
+				jugar();
 			}
 			else if (e.getActionCommand().equals("PressRanking")){
 				
@@ -188,5 +187,17 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
+	private void jugar(){
+		
+		if(getComboBox().getSelectedItem().equals("1")){
+
+		}
+		else if(getComboBox().getSelectedItem().equals("2")){
+
+		}
+		else if(getComboBox().getSelectedItem().equals("3")){
+			
+		}
+	}
 	
 }
