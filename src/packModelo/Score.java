@@ -4,14 +4,13 @@ public class Score {
 
 	private int puntuacion;
 
-
 	public Score() {
 		this.puntuacion = 0;
 	}
 
 
-	public void setScore(int pP) {
-		this.puntuacion = pP;
+	public void setScore(int pPuntos) {
+		this.puntuacion = pPuntos;
 		
 	}
 
