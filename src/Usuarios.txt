@@ -1,0 +1,10 @@
+lufi \ 5000
+sanji \ 4550
+jinbei \ 2300
+robin \ 1500
+nami \ 1300
+chopper \ 1200
+franky \ 1100
+zoro \ 1010
+usopp \ 400
+brook \ 300

@@ -10,12 +10,14 @@ import packExcepciones.FicheroNoEncontradoException;
 public class CatalogoUsuarios {
 	
 	private static CatalogoUsuarios catalogo;
+	private ListaUsuarios lUsuarios = new ListaUsuarios();
 	
 	private CatalogoUsuarios(){}
 	
 	public static CatalogoUsuarios getCatalogo(){
 		if (catalogo==null){
 			catalogo=new CatalogoUsuarios();
+			
 		}
 		return catalogo;
 	}
@@ -23,19 +25,16 @@ public class CatalogoUsuarios {
 	public void cargarFichero() throws FicheroNoEncontradoException{
 		System.out.println("Cargando usuarios");
 		try{
-			File archivo = new File(".","Usuarios.txt");
+			File archivo = new File(".","src/Usuarios.txt");
 			Scanner entrada = new Scanner(new FileReader(archivo));
-			
 			String linea;
 			String[] tokens;
-			
-			ListaUsuarios lUsuarios = new ListaUsuarios();
 			Usuario usu;
 			
 			while (entrada.hasNext()) {
 				linea = entrada.nextLine();
 				tokens = linea.split("\\s+\\\\\\s+");
-				usu=new Usuario(tokens[1],Integer.parseInt(tokens[2]));
+				usu=new Usuario(tokens[0],Integer.parseInt(tokens[1]));
 				lUsuarios.addUsuario(usu);
 			}
 			entrada.close();
@@ -44,6 +43,11 @@ public class CatalogoUsuarios {
 		catch(NullPointerException e){e.printStackTrace();}
 		catch(Exception e){e.printStackTrace();}
 		System.out.println("Fin carga\n");
+	}
+	
+	public String Mejores(){
+		return CatalogoUsuarios.getCatalogo().lUsuarios.Mejores();
+
 	}
 
 }

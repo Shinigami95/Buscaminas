@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import packExcepciones.FicheroNoEncontradoException;
+import packModelo.CatalogoUsuarios;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -181,7 +185,7 @@ public class VentanaPrincipal extends JFrame {
 				jugar();
 			}
 			else if (e.getActionCommand().equals("PressRanking")){
-				
+				mostrarRanking();
 			}
 		}
 		
@@ -198,6 +202,11 @@ public class VentanaPrincipal extends JFrame {
 		else if(getComboBox().getSelectedItem().equals("3")){
 			
 		}
+	}
+	
+	private void mostrarRanking(){
+		getVentana().visible(false);
+		VentanaRanking.getVentana().setVisible(true);
 	}
 	
 }
