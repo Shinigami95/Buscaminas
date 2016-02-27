@@ -22,6 +22,10 @@ public class CatalogoUsuarios {
 		return catalogo;
 	}
 	
+	public ListaUsuarios getLista(){
+		return lUsuarios;
+	}
+	
 	public void cargarFichero() throws FicheroNoEncontradoException{
 		System.out.println("Cargando usuarios");
 		try{
@@ -46,7 +50,7 @@ public class CatalogoUsuarios {
 	}
 	
 	public String Mejores(){
-		return CatalogoUsuarios.getCatalogo().lUsuarios.Mejores();
+		return CatalogoUsuarios.getCatalogo().getLista().Mejores();
 
 	}
 
