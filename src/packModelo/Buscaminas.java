@@ -1,5 +1,7 @@
 package packModelo;
 
+import javax.swing.JOptionPane;
+
 public class Buscaminas {
 	
 	private static Buscaminas miBuscaminas;
@@ -23,6 +25,10 @@ public class Buscaminas {
 		
 	}
 	
+	public MatrizCasillas getMatriz(){
+		return matriz;
+	}
+	
 	public int getNivel(){
 		return nivel;
 	}
@@ -33,13 +39,13 @@ public class Buscaminas {
 	
 	public void crearMatriz(int level){
 		setNivel(level);
-		System.out.println("hola");
 		matriz=MatrizCasillas.getMatrizCasillas();
-		System.out.println("hola");
 		matriz.crearMatriz();
-		System.out.println("hola");
 		matriz.llenarMatriz();
-		System.out.println("hola");
+	}
+	
+	public void gameOver(){
+		JOptionPane.showMessageDialog(null, "GAME OVER");
 	}
 
 }

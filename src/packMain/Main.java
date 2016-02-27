@@ -12,7 +12,7 @@ public class Main {
 		} catch (FicheroNoEncontradoException e) {
 			e.printStackTrace();
 		}
-		VentanaPrincipal.getVentana().visible(true);
+		VentanaPrincipal.getVentana().setVisible(true);
 
 	}
 

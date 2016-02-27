@@ -48,10 +48,6 @@ public class VentanaPrincipal extends JFrame {
 		return ventana;
 	}
 	
-	public void visible(boolean f){
-		ventana.setVisible(f);
-	}
-	
 	private VentanaPrincipal() {
 		initialize();
 	}
@@ -191,13 +187,18 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	private void jugar(){
-		getVentana().visible(false);
-		Buscaminas.getBuscaminas().login(getTextField().getText());
+		getVentana().setVisible(false);
+		if(getTextField().getText().equals("")){
+			Buscaminas.getBuscaminas().login("Anonimo");
+		}else{
+			Buscaminas.getBuscaminas().login(getTextField().getText());}
 		Buscaminas.getBuscaminas().crearMatriz(Integer.parseInt(getComboBox().getSelectedItem().toString()));
+		VentanaBuscaminas.getVentana().setVisible(true);
+		
 	}
 	
 	private void mostrarRanking(){
-		getVentana().visible(false);
+		getVentana().setVisible(false);
 		VentanaRanking.getVentana().setVisible(true);
 	}
 	

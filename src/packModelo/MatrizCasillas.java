@@ -16,8 +16,12 @@ public class MatrizCasillas {
 		return matrizCasilla;
 	}
 	
-	public Casilla[][] getMatriz(){
-		return matriz;
+	public int getFilas(){
+		return filas;
+	}
+	
+	public int getColumnas(){
+		return columnas;
 	}
 	
 	public Casilla getCasilla(int fil,int col){
@@ -47,12 +51,10 @@ public class MatrizCasillas {
 	private int[][] crearMatrixNum(){
 		int[][] numMatrix=rellenarConCero();
 		int fil,col;
-		int i=0;int r=0;
+		int i=0;
 		while(i<columnas*Buscaminas.getBuscaminas().getNivel()){
 			fil=(int) (Math.random()*filas-1);
 			col=(int) (Math.random()*columnas-1);
-			r++;
-			System.out.println(r);
 			if(numMatrix[fil][col]!=-1){
 				numMatrix[fil][col]=-1;
 				i++;

@@ -126,7 +126,7 @@ public class VentanaRanking extends JFrame {
 		}
 	
 	private void volver(){
-		VentanaPrincipal.getVentana().visible(true);
+		VentanaPrincipal.getVentana().setVisible(true);
 		getVentana().dispose();
 	}
 }
