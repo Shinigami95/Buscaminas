@@ -2,6 +2,8 @@ package packModelo;
 
 import javax.swing.JOptionPane;
 
+import packVentanas.VentanaBuscaminas;
+
 public class Buscaminas {
 	
 	private static Buscaminas miBuscaminas;
@@ -22,8 +24,13 @@ public class Buscaminas {
 		nivel = pNivel;
 	}
 	
-	private void setJugador(String pNomjug){
-		jugador = new Usuario(pNomjug, 0);
+	private void setJugador(Usuario usu){
+		jugador = usu;
+		
+	}
+	
+	public Usuario getJugador(){
+		return jugador;
 		
 	}
 	
@@ -35,8 +42,8 @@ public class Buscaminas {
 		return nivel;
 	}
 	
-	public void login(String pNomjug) {
-		setJugador(pNomjug);
+	public void login(Usuario usu) {
+		setJugador(usu);
 	}
 	
 
@@ -45,10 +52,15 @@ public class Buscaminas {
 		matriz = MatrizCasillas.getMatrizCasillas();
 		matriz.crearMatriz();
 		matriz.llenarMatriz();
+		VentanaBuscaminas.getVentana().setVisible(true);
 	}
 	
 	public void gameOver(){
 		JOptionPane.showMessageDialog(null, "GAME OVER");
+	}
+	
+	public void reinicio(){
+		Buscaminas.miBuscaminas=null;
 	}
 
 }

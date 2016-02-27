@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import packModelo.Buscaminas;
+import packModelo.Usuario;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -187,12 +188,14 @@ public class VentanaPrincipal extends JFrame {
 	
 	private void jugar(){
 		getVentana().setVisible(false);
+		Usuario usu;
 		if(getTextField().getText().equals("")){
-			Buscaminas.getBuscaminas().login("Anonimo");
+			usu=new Usuario("Anonimo", 0);
+			
 		}else{
-			Buscaminas.getBuscaminas().login(getTextField().getText());}
+			usu=new Usuario(getTextField().getText(), 0);}
+		Buscaminas.getBuscaminas().login(usu);
 		Buscaminas.getBuscaminas().crearMatriz(Integer.parseInt(getComboBox().getSelectedItem().toString()));
-		VentanaBuscaminas.getVentana().setVisible(true);
 		
 	}
 	

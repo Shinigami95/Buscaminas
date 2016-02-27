@@ -19,10 +19,13 @@ import packModelo.Buscaminas;
 import packModelo.CasillaBlanca;
 import packModelo.CasillaMina;
 import packModelo.CasillaNumero;
+import packModelo.Usuario;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.GridLayout;
@@ -43,6 +46,7 @@ public class VentanaBuscaminas extends JFrame {
 	private JPanel panelMatriz;
 	private Controlador controlador;
 	private JButton[][] botonMatriz;
+	private Usuario user=Buscaminas.getBuscaminas().getJugador();
 	private int f=Buscaminas.getBuscaminas().getMatriz().getFilas();
 	private int c=Buscaminas.getBuscaminas().getMatriz().getColumnas();
 	private int niv=Buscaminas.getBuscaminas().getNivel();
@@ -187,17 +191,24 @@ public class VentanaBuscaminas extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
-						mostrarMina();
-						bloquearBotones();
-						Buscaminas.getBuscaminas().gameOver();
+					if(!terminado()){
+						if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
+							mostrarMina();
+							bloquearBotones();
+							Buscaminas.getBuscaminas().gameOver();
+						}
+						else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
+							mostrarBoton(fila,colu);
+							Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
+						}
+						else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
+							//TODO
+						}
 					}
-					else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
-						mostrarBoton(fila,colu);
+					else{
+						finalizar();
 					}
-					else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
-						//TODO
-					}
+					
 				}
 			});
 			
@@ -222,7 +233,7 @@ public class VentanaBuscaminas extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand().equals("PressRestart")){
-				
+				reinicio();
 			}
 		}
 	}
@@ -245,8 +256,22 @@ public class VentanaBuscaminas extends JFrame {
 				}
 			}
 		}
-		
-		
+	}
+	
+	private boolean terminado(){
+		boolean terminado=false;
+		int cont=0;
+		for(int i=0;i<f;i++){
+			for(int j=0;j<c;j++){
+				if(!Buscaminas.getBuscaminas().getMatriz().getCasilla(i, j).getVista()){
+					cont++;
+				}
+			}
+		}
+		if(cont==c*niv){
+			terminado=true;
+		}
+		return terminado;
 	}
 	
 	private void mostrarBoton(int fila,int colu){
@@ -255,6 +280,27 @@ public class VentanaBuscaminas extends JFrame {
 		getCasilla(fila, colu).setEnabled(false);
 		getCasilla(fila, colu).setBackground(Color.WHITE);
 		getCasilla(fila, colu).setForeground(Color.BLACK);
+	}
+	
+	private void reinicio(){Buscaminas.getBuscaminas().reinicio();
+	Buscaminas.getBuscaminas().login(user);
+	Buscaminas.getBuscaminas().crearMatriz(niv);
+	VentanaBuscaminas.getVentana().ventana.setVisible(false);
+	VentanaBuscaminas.getVentana().ventana=null;
+	VentanaBuscaminas.getVentana().setVisible(true);}
+	
+	private void finalizar(){
+		ImageIcon icon=new ImageIcon("mina.jpg");
+		int seleccion1=JOptionPane.showOptionDialog(null, "¿Quiere volver a jugar?", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, icon, new Object[]{"SI","NO","CANCELAR"}, "SI");
+		if(seleccion1==0){
+			int seleccion2=JOptionPane.showOptionDialog(null, "Escoge un nivel:", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, icon, new Object[]{"1","2","3"}, "1");
+			Buscaminas.getBuscaminas().reinicio();
+			Buscaminas.getBuscaminas().login(user);
+			Buscaminas.getBuscaminas().crearMatriz(seleccion2+1);
+			VentanaBuscaminas.getVentana().ventana.setVisible(false);
+			VentanaBuscaminas.getVentana().ventana=null;
+			VentanaBuscaminas.getVentana().setVisible(true);
+		}
 	}
 	
 }
