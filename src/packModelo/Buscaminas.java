@@ -33,9 +33,13 @@ public class Buscaminas {
 	
 	public void crearMatriz(int level){
 		setNivel(level);
+		System.out.println("hola");
 		matriz=MatrizCasillas.getMatrizCasillas();
+		System.out.println("hola");
 		matriz.crearMatriz();
+		System.out.println("hola");
 		matriz.llenarMatriz();
+		System.out.println("hola");
 	}
 
 }

@@ -47,39 +47,77 @@ public class MatrizCasillas {
 	private int[][] crearMatrixNum(){
 		int[][] numMatrix=rellenarConCero();
 		int fil,col;
-		int i=0;
-		int j=-1;
-		int k=-1;
+		int i=0;int r=0;
 		while(i<columnas*Buscaminas.getBuscaminas().getNivel()){
 			fil=(int) (Math.random()*filas-1);
 			col=(int) (Math.random()*columnas-1);
-			if(numMatrix[fil][col]==0){
+			r++;
+			System.out.println(r);
+			if(numMatrix[fil][col]!=-1){
 				numMatrix[fil][col]=-1;
 				i++;
-				while(j<2){
-					while(k<2){
-						if(k!=0&&j!=0){
-						try{
-							if(numMatrix[fil+j][col+k]!=-1){
-							numMatrix[fil+j][col+k]=numMatrix[fil+j][col+k]+1;
-							}
-						}catch(Exception e){}
-						}
-						k++;
+				try{
+					if(numMatrix[fil-1][col-1]!=-1){
+					numMatrix[fil-1][col-1]=numMatrix[fil-1][col-1]+1;
 					}
-					j++;
-				}
+				}catch(Exception e){}
+				try{
+					if(numMatrix[fil-1][col]!=-1){
+					numMatrix[fil-1][col]=numMatrix[fil-1][col]+1;
+					}
+				}catch(Exception e){}
+				try{
+					if(numMatrix[fil][col-1]!=-1){
+					numMatrix[fil][col-1]=numMatrix[fil][col-1]+1;
+					}
+				}catch(Exception e){}
+				try{
+					if(numMatrix[fil+1][col]!=-1){
+					numMatrix[fil+1][col]=numMatrix[fil+1][col]+1;
+					}
+				}catch(Exception e){}
+				try{
+					if(numMatrix[fil+1][col+1]!=-1){
+					numMatrix[fil+1][col+1]=numMatrix[fil+1][col+1]+1;
+					}
+				}catch(Exception e){}
+				try{
+					if(numMatrix[fil][col+1]!=-1){
+					numMatrix[fil][col+1]=numMatrix[fil][col+1]+1;
+					}
+				}catch(Exception e){}
+				try{
+					if(numMatrix[fil+1][col-1]!=-1){
+					numMatrix[fil+1][col-1]=numMatrix[fil+1][col-1]+1;
+					}
+				}catch(Exception e){}
+				try{
+					if(numMatrix[fil-1][col+1]!=-1){
+					numMatrix[fil-1][col+1]=numMatrix[fil-1][col+1]+1;
+					}
+				}catch(Exception e){}
 			}
 		}
-		
+		imprimirMatriz(numMatrix);
 		return numMatrix;
 	}
+	
+	private void imprimirMatriz(int[][] numMatrix){
+		String res="";
+		for(int s=0;s<filas;s++){
+			for(int c=0;c<columnas;c++){
+				res+="\t"+numMatrix[s][c];
+			}
+			res+="\n";
+		}
+			
+		System.out.println(res);
+	}
+	
 	private int[][] rellenarConCero(){
 		int[][] numMatrix=new int[filas][columnas];
 		for(int i=0;i<=filas-1;i++){
 			for(int j=0;j<=columnas-1;j++){
-				System.out.println(i);
-				System.out.println(j);
 				numMatrix[i][j]=0;
 			}
 		}
