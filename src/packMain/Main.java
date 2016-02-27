@@ -13,7 +13,5 @@ public class Main {
 			e.printStackTrace();
 		}
 		VentanaPrincipal.getVentana().visible(true);
-
 	}
-
 }

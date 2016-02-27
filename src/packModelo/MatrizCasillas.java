@@ -20,8 +20,8 @@ public class MatrizCasillas {
 		return matriz;
 	}
 	
-	public Casilla getCasilla(int fil,int col){
-		return matriz[fil][col];
+	public Casilla getCasilla(int pFil,int pCol){
+		return matriz[pFil][pCol];
 	}
 	
 	public void crearMatriz(){
@@ -41,14 +41,15 @@ public class MatrizCasillas {
 	public void llenarMatriz(){
 		int[][] numMatrix=crearMatrixNum();
 		ponerCasillas(numMatrix);
-
-		
 	}
+	
 	private int[][] crearMatrixNum(){
 		int[][] numMatrix=rellenarConCero();
 		int fil,col;
 		int i=0;int r=0;
+		//Mientras las minas esten sin poner
 		while(i<columnas*Buscaminas.getBuscaminas().getNivel()){
+			//La colocamos aleatoriamente
 			fil=(int) (Math.random()*filas-1);
 			col=(int) (Math.random()*columnas-1);
 			r++;
@@ -110,7 +111,6 @@ public class MatrizCasillas {
 			}
 			res+="\n";
 		}
-			
 		System.out.println(res);
 	}
 	
@@ -138,5 +138,4 @@ public class MatrizCasillas {
 			}
 		}
 	}
-
 }
