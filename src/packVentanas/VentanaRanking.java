@@ -1,8 +1,5 @@
 package packVentanas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -24,6 +21,10 @@ import javax.swing.JButton;
 
 public class VentanaRanking extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblRanking;
 	private JTextArea textArea;
@@ -87,7 +88,7 @@ public class VentanaRanking extends JFrame {
 	private JTextArea getTextArea() {
 		if (textArea == null) {
 			textArea = new JTextArea();
-			textArea.setText(CatalogoUsuarios.getCatalogo().Mejores());
+			textArea.setText(CatalogoUsuarios.getCatalogo().mejores());
 		}
 		return textArea;
 	}

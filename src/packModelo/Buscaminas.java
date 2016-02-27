@@ -17,11 +17,13 @@ public class Buscaminas {
 		}
 		return miBuscaminas;
 	}
-	private void setNivel(int niv){
-		nivel=niv;
+	
+	private void setNivel(int pNivel){
+		nivel = pNivel;
 	}
-	private void setJugador(String nomjug){
-		jugador=new Usuario(nomjug, 0);
+	
+	private void setJugador(String pNomjug){
+		jugador = new Usuario(pNomjug, 0);
 		
 	}
 	
@@ -33,13 +35,14 @@ public class Buscaminas {
 		return nivel;
 	}
 	
-	public void login(String nomjug) {
-		setJugador(nomjug);
+	public void login(String pNomjug) {
+		setJugador(pNomjug);
 	}
 	
+
 	public void crearMatriz(int level){
 		setNivel(level);
-		matriz=MatrizCasillas.getMatrizCasillas();
+		matriz = MatrizCasillas.getMatrizCasillas();
 		matriz.crearMatriz();
 		matriz.llenarMatriz();
 	}

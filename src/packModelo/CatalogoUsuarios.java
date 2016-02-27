@@ -49,8 +49,8 @@ public class CatalogoUsuarios {
 		System.out.println("Fin carga\n");
 	}
 	
-	public String Mejores(){
-		return CatalogoUsuarios.getCatalogo().getLista().Mejores();
+	public String mejores(){
+		return CatalogoUsuarios.getCatalogo().getLista().mejores();
 
 	}
 

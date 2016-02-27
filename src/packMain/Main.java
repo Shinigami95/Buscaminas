@@ -12,8 +12,8 @@ public class Main {
 		} catch (FicheroNoEncontradoException e) {
 			e.printStackTrace();
 		}
+
 		VentanaPrincipal.getVentana().setVisible(true);
 
 	}
-
 }

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,7 +22,6 @@ import packModelo.CasillaNumero;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -29,6 +29,10 @@ import java.awt.GridLayout;
 
 public class VentanaBuscaminas extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panelRestart;
 	private JLabel label;
@@ -61,7 +65,7 @@ public class VentanaBuscaminas extends JFrame {
 		}else if(niv==2){
 			setBounds(100, 100, 650, 450);
 		}else{
-			setBounds(100, 100, 450, 300);
+			setExtendedState(MAXIMIZED_BOTH);
 		}
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

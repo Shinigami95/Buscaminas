@@ -8,10 +8,8 @@ public class Score {
 		this.puntuacion = 0;
 	}
 
-
 	public void setScore(int pPuntos) {
 		this.puntuacion = pPuntos;
-		
 	}
 
 	public String toString() {

@@ -1,20 +1,15 @@
 package packVentanas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import packExcepciones.FicheroNoEncontradoException;
 import packModelo.Buscaminas;
-import packModelo.CatalogoUsuarios;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,8 +24,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VentanaPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 	private JLabel label;
 	private JTextField textField;
 	private JLabel label_1;
@@ -107,7 +106,7 @@ public class VentanaPrincipal extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
-	private JComboBox getComboBox() {
+	private JComboBox<String> getComboBox() {
 		if (comboBox == null) {
 			Vector<String> vec = new Vector<String>();
 			for(int i=1;i<4;i++){
