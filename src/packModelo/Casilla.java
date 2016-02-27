@@ -1,5 +1,6 @@
 package packModelo;
 
-public interface Casilla {
-
+public class Casilla {
+	
+	
 }

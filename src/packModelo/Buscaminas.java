@@ -3,9 +3,9 @@ package packModelo;
 public class Buscaminas {
 	
 	private static Buscaminas miBuscaminas;
-	private String jugador;
-	private Score puntos;
+	private Usuario jugador;
 	private int nivel;
+	private MatrizCasillas matriz;
 	
 	private Buscaminas() {}
 
@@ -15,28 +15,27 @@ public class Buscaminas {
 		}
 		return miBuscaminas;
 	}
+	private void setNivel(int niv){
+		nivel=niv;
+	}
+	private void setJugador(String nomjug){
+		jugador=new Usuario(nomjug, 0);
+		
+	}
 	
-	public void restarPuntuacion(int pTiempo){
-		double ponderacion;
-		if(nivel == 1){
-			ponderacion = 0.45;
-		}else if(nivel == 2){
-			ponderacion = 0.3;
-		}else{
-			ponderacion = 0.15;
-		}
-		puntos.setScore(puntos.getPuntuacion() - (int)(pTiempo*ponderacion));
+	public int getNivel(){
+		return nivel;
+	}
+	
+	public void login(String nomjug) {
+		setJugador(nomjug);
+	}
+	
+	public void crearMatriz(int level){
+		setNivel(level);
+		matriz=MatrizCasillas.getMatrizCasillas();
+		matriz.crearMatriz();
+		matriz.llenarMatriz();
 	}
 
-	public void setNivel(int pNivel) {
-		nivel = pNivel;
-	}
-
-	public String getJugador() {
-		return jugador;
-	}
-
-	public void setJugador(String pNombre) {
-		this.jugador = pNombre;
-	}
 }

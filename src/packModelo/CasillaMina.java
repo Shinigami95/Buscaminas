@@ -1,5 +1,5 @@
 package packModelo;
 
-public class CasillaMina {
+public class CasillaMina extends Casilla{
 
 }

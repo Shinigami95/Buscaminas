@@ -1,5 +1,104 @@
 package packModelo;
 
 public class MatrizCasillas {
+	private static MatrizCasillas matrizCasilla;
+	private Casilla[][] matriz;
+	private int filas;
+	private int columnas;
+	
+	private MatrizCasillas(){
+	}
+	
+	public static MatrizCasillas getMatrizCasillas(){
+		if(matrizCasilla==null){
+			matrizCasilla=new MatrizCasillas();
+		}
+		return matrizCasilla;
+	}
+	
+	public Casilla[][] getMatriz(){
+		return matriz;
+	}
+	
+	public Casilla getCasilla(int fil,int col){
+		return matriz[fil][col];
+	}
+	
+	public void crearMatriz(){
+		if(Buscaminas.getBuscaminas().getNivel()==1){
+			filas=7;
+			columnas=10;
+		}else if(Buscaminas.getBuscaminas().getNivel()==2){
+			filas=10;
+			columnas=15;
+		}else{
+			filas=12;
+			columnas=25;
+		}
+		matriz=new Casilla[filas][columnas];
+	}
+	
+	public void llenarMatriz(){
+		int[][] numMatrix=crearMatrixNum();
+		ponerCasillas(numMatrix);
+
+		
+	}
+	private int[][] crearMatrixNum(){
+		int[][] numMatrix=rellenarConCero();
+		int fil,col;
+		int i=0;
+		int j=-1;
+		int k=-1;
+		while(i<columnas*Buscaminas.getBuscaminas().getNivel()){
+			fil=(int) (Math.random()*filas-1);
+			col=(int) (Math.random()*columnas-1);
+			if(numMatrix[fil][col]==0){
+				numMatrix[fil][col]=-1;
+				i++;
+				while(j<2){
+					while(k<2){
+						if(k!=0&&j!=0){
+						try{
+							if(numMatrix[fil+j][col+k]!=-1){
+							numMatrix[fil+j][col+k]=numMatrix[fil+j][col+k]+1;
+							}
+						}catch(Exception e){}
+						}
+						k++;
+					}
+					j++;
+				}
+			}
+		}
+		
+		return numMatrix;
+	}
+	private int[][] rellenarConCero(){
+		int[][] numMatrix=new int[filas][columnas];
+		for(int i=0;i<=filas-1;i++){
+			for(int j=0;j<=columnas-1;j++){
+				System.out.println(i);
+				System.out.println(j);
+				numMatrix[i][j]=0;
+			}
+		}
+		return numMatrix;
+	}
+	
+	private void ponerCasillas(int[][] matrix){
+		for(int i=0;i<=filas-1;i++){
+			for(int j=0;j<=columnas-1;j++){
+				if(matrix[i][j]==-1){
+					matriz[i][j]=new CasillaMina();
+				}else if(matrix[i][j]>0){
+					matriz[i][j]=new CasillaNumero(matrix[i][j]);
+				}
+				else if(matrix[i][j]==0){
+					matriz[i][j]=new CasillaBlanca();
+				}
+			}
+		}
+	}
 
 }

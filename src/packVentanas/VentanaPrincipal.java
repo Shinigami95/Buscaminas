@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import packExcepciones.FicheroNoEncontradoException;
+import packModelo.Buscaminas;
 import packModelo.CatalogoUsuarios;
 
 import javax.swing.DefaultComboBoxModel;
@@ -69,19 +70,19 @@ public class VentanaPrincipal extends JFrame {
 							.addGap(112)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(getLabel_1(), GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-									.addGap(10)
-									.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(getLabel())
-									.addGap(29)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(getComboBox(), GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-										.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-											.addGap(10)
-											.addComponent(getButtonJugar(), GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-											.addComponent(getBtnRanking(), GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))))))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(getLabel_1(), GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+								.addComponent(getLabel()))
+							.addGap(10)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addGap(39)
+										.addComponent(getButtonJugar(), GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+										.addComponent(getBtnRanking(), GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+									.addComponent(getComboBox(), GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+								.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(139)
 							.addComponent(getLabel_2(), GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)))
@@ -94,17 +95,15 @@ public class VentanaPrincipal extends JFrame {
 					.addComponent(getLabel_2())
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(1)
-							.addComponent(getLabel_1(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-						.addComponent(getTextField(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(42)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(3)
-							.addComponent(getLabel()))
+							.addComponent(getLabel_1(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)))
+					.addGap(39)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(getLabel())
 						.addComponent(getComboBox(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(getBtnRanking())
 						.addComponent(getButtonJugar()))
@@ -192,16 +191,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	private void jugar(){
-		
-		if(getComboBox().getSelectedItem().equals("1")){
-
-		}
-		else if(getComboBox().getSelectedItem().equals("2")){
-
-		}
-		else if(getComboBox().getSelectedItem().equals("3")){
-			
-		}
+		getVentana().visible(false);
+		Buscaminas.getBuscaminas().login(getTextField().getText());
+		Buscaminas.getBuscaminas().crearMatriz(Integer.parseInt(getComboBox().getSelectedItem().toString()));
 	}
 	
 	private void mostrarRanking(){
