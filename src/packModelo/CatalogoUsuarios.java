@@ -33,7 +33,7 @@ public class CatalogoUsuarios {
 	public void cargarFichero() throws FicheroNoEncontradoException{
 		System.out.println("Cargando usuarios");
 		try{
-			File archivo = new File(".","src/Usuarios.txt");
+			File archivo = new File(".","Usuarios.txt");
 			Scanner entrada = new Scanner(new FileReader(archivo));
 			String linea;
 			String[] tokens;
@@ -61,9 +61,9 @@ public class CatalogoUsuarios {
 		PrintWriter pw = null;
 		Iterator<Usuario> itr = CatalogoUsuarios.getCatalogo().getLista().getUsuarios();
 		try {
-			File archivo = new File(".","src/Usuarios.txt");
+			File archivo = new File(".","Usuarios.txt");
 			archivo.createNewFile();
-			fw = new FileWriter("src/Usuarios.txt");
+			fw = new FileWriter("Usuarios.txt");
 			pw = new PrintWriter(fw);
 			while (itr.hasNext()){
 				uAux = itr.next();
