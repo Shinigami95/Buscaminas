@@ -7,6 +7,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -25,11 +27,14 @@ import packModelo.Usuario;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingUtilities;
+
 import java.awt.GridLayout;
 
 public class VentanaBuscaminas extends JFrame {
@@ -52,6 +57,7 @@ public class VentanaBuscaminas extends JFrame {
 	private int f=Buscaminas.getBuscaminas().getMatriz().getFilas();
 	private int c=Buscaminas.getBuscaminas().getMatriz().getColumnas();
 	private int niv=Buscaminas.getBuscaminas().getNivel();
+	private int bombas=c*niv;
 	private static VentanaBuscaminas ventana;
 	
 	public static VentanaBuscaminas getVentana(){
@@ -132,7 +138,7 @@ public class VentanaBuscaminas extends JFrame {
 	}
 	private JLabel getLabel_1() {
 		if (label_1 == null) {
-			label_1 = new JLabel("Bombas Puestas: ");
+			label_1 = new JLabel(""+bombas);
 		}
 		return label_1;
 	}
@@ -189,25 +195,28 @@ public class VentanaBuscaminas extends JFrame {
 			final int fila=fil;
 			final int colu=col;
 			getBotonesMatriz()[fil][col]=new JButton();
-			getBotonesMatriz()[fil][col].addActionListener(new ActionListener() {
+			getBotonesMatriz()[fil][col].addMouseListener(new MouseListener() {
 				
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void mouseReleased(MouseEvent e) {
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {			
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {			
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					controlMouse(e,fila,colu);
 					
-						if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
-							mostrarMina();
-							bloquearBotones();
-							Buscaminas.getBuscaminas().gameOver();
-						}
-						else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
-							mostrarBoton(fila,colu);
-							Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
-						}
-						else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
-							mostrarBlancas(fila,colu);
-						}
-						if(terminado()){finalizar();
-						}
 				}
 			});
 			
@@ -285,19 +294,18 @@ public class VentanaBuscaminas extends JFrame {
 	private void reinicio(){Buscaminas.getBuscaminas().reinicio();
 	Buscaminas.getBuscaminas().login(user);
 	Buscaminas.getBuscaminas().crearMatriz(niv);
-	VentanaBuscaminas.getVentana().ventana.setVisible(false);
+	VentanaBuscaminas.getVentana().setVisible(false);
 	VentanaBuscaminas.getVentana().ventana=null;
 	VentanaBuscaminas.getVentana().setVisible(true);}
 	
 	private void finalizar(){
-		ImageIcon icon=new ImageIcon("mina.jpg");
-		int seleccion1=JOptionPane.showOptionDialog(null, "¿Quiere volver a jugar?", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, icon, new Object[]{"SI","NO","CANCELAR"}, "SI");
+		int seleccion1=JOptionPane.showOptionDialog(null, "¿Quiere volver a jugar?", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"SI","NO","CANCELAR"}, "SI");
 		if(seleccion1==0){
-			int seleccion2=JOptionPane.showOptionDialog(null, "Escoge un nivel:", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, icon, new Object[]{"1","2","3"}, "1");
+			int seleccion2=JOptionPane.showOptionDialog(null, "Escoge un nivel:", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"1","2","3"}, "1");
 			Buscaminas.getBuscaminas().reinicio();
 			Buscaminas.getBuscaminas().login(user);
 			Buscaminas.getBuscaminas().crearMatriz(seleccion2+1);
-			VentanaBuscaminas.getVentana().ventana.setVisible(false);
+			VentanaBuscaminas.getVentana().setVisible(false);
 			VentanaBuscaminas.getVentana().ventana=null;
 			VentanaBuscaminas.getVentana().setVisible(true);
 		}
@@ -320,6 +328,41 @@ public class VentanaBuscaminas extends JFrame {
 	private void mostrarBlanca(int fila,int colu){
 		getCasilla(fila, colu).setEnabled(false);
 		getCasilla(fila, colu).setBackground(Color.WHITE);
+		getCasilla(fila, colu).setText("");
 	}
 	
+	private void cambiarMarca(int fil,int col){
+		Buscaminas.getBuscaminas().getMatriz().getCasilla(fil, col).cambiarMarca();
+		if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fil, col).getMarcada()){
+			bombas--;
+			getCasilla(fil, col).setFont(new Font("Tahoma", Font.BOLD, 11));
+			getCasilla(fil, col).setText("B");
+			getLabel_1().setText(""+bombas);
+		}else{
+			bombas++;
+			getCasilla(fil, col).setText("");
+			getLabel_1().setText(""+bombas);
+		}
+	}
+	
+	private void controlMouse(MouseEvent e,int fila,int colu){
+	if(SwingUtilities.isLeftMouseButton(e)){
+		if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
+			mostrarMina();
+			bloquearBotones();
+			Buscaminas.getBuscaminas().gameOver();
+		}
+		else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
+			mostrarBoton(fila,colu);
+			Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
+		}
+		else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
+			mostrarBlancas(fila,colu);
+		}
+		if(terminado()){finalizar();
+		}}
+		else if(SwingUtilities.isRightMouseButton(e)){
+			if(!Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).getVista())
+				cambiarMarca(fila,colu);
+		}}
 }
