@@ -9,13 +9,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import packModelo.Buscaminas;
+import packModelo.Casilla;
 import packModelo.CasillaBlanca;
 import packModelo.CasillaMina;
 import packModelo.CasillaNumero;
@@ -191,7 +193,7 @@ public class VentanaBuscaminas extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(!terminado()){
+					
 						if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
 							mostrarMina();
 							bloquearBotones();
@@ -202,13 +204,10 @@ public class VentanaBuscaminas extends JFrame {
 							Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
 						}
 						else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
-							//TODO
+							mostrarBlancas(fila,colu);
 						}
-					}
-					else{
-						finalizar();
-					}
-					
+						if(terminado()){finalizar();
+						}
 				}
 			});
 			
@@ -275,6 +274,7 @@ public class VentanaBuscaminas extends JFrame {
 	}
 	
 	private void mostrarBoton(int fila,int colu){
+		Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
 		CasillaNumero cas=(CasillaNumero) Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu);
 		getCasilla(fila, colu).setText(""+cas.getNumero());
 		getCasilla(fila, colu).setEnabled(false);
@@ -301,6 +301,25 @@ public class VentanaBuscaminas extends JFrame {
 			VentanaBuscaminas.getVentana().ventana=null;
 			VentanaBuscaminas.getVentana().setVisible(true);
 		}
+	}
+	
+	private void mostrarBlancas(int fil, int col){
+		ArrayList<Casilla> devol=Buscaminas.getBuscaminas().mostrarBlancas(fil, col);
+		Iterator<Casilla> itr=devol.iterator();
+		Casilla cas;
+		while(itr.hasNext()){
+			cas=itr.next();
+			if(cas instanceof CasillaBlanca){
+				mostrarBlanca(cas.getFila(), cas.getColumna());}
+			else{
+				mostrarBoton(cas.getFila(), cas.getColumna());
+			}
+		}
+	}
+	
+	private void mostrarBlanca(int fila,int colu){
+		getCasilla(fila, colu).setEnabled(false);
+		getCasilla(fila, colu).setBackground(Color.WHITE);
 	}
 	
 }

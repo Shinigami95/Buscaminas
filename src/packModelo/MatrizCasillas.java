@@ -1,5 +1,8 @@
 package packModelo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class MatrizCasillas {
 	private static MatrizCasillas matrizCasilla;
 	private Casilla[][] matriz;
@@ -59,49 +62,26 @@ public class MatrizCasillas {
 			if(numMatrix[fil][col]!=-1){
 				numMatrix[fil][col]=-1;
 				i++;
-				try{
-					if(numMatrix[fil-1][col-1]!=-1){
-					numMatrix[fil-1][col-1]=numMatrix[fil-1][col-1]+1;
-					}
-				}catch(Exception e){}
-				try{
-					if(numMatrix[fil-1][col]!=-1){
-					numMatrix[fil-1][col]=numMatrix[fil-1][col]+1;
-					}
-				}catch(Exception e){}
-				try{
-					if(numMatrix[fil][col-1]!=-1){
-					numMatrix[fil][col-1]=numMatrix[fil][col-1]+1;
-					}
-				}catch(Exception e){}
-				try{
-					if(numMatrix[fil+1][col]!=-1){
-					numMatrix[fil+1][col]=numMatrix[fil+1][col]+1;
-					}
-				}catch(Exception e){}
-				try{
-					if(numMatrix[fil+1][col+1]!=-1){
-					numMatrix[fil+1][col+1]=numMatrix[fil+1][col+1]+1;
-					}
-				}catch(Exception e){}
-				try{
-					if(numMatrix[fil][col+1]!=-1){
-					numMatrix[fil][col+1]=numMatrix[fil][col+1]+1;
-					}
-				}catch(Exception e){}
-				try{
-					if(numMatrix[fil+1][col-1]!=-1){
-					numMatrix[fil+1][col-1]=numMatrix[fil+1][col-1]+1;
-					}
-				}catch(Exception e){}
-				try{
-					if(numMatrix[fil-1][col+1]!=-1){
-					numMatrix[fil-1][col+1]=numMatrix[fil-1][col+1]+1;
-					}
-				}catch(Exception e){}
+				numMatrix=calcNum(numMatrix, fil-1, col-1);
+				numMatrix=calcNum(numMatrix, fil-1, col);
+				numMatrix=calcNum(numMatrix, fil-1, col+1);
+				numMatrix=calcNum(numMatrix, fil, col-1);
+				numMatrix=calcNum(numMatrix, fil, col+1);
+				numMatrix=calcNum(numMatrix, fil+1, col-1);
+				numMatrix=calcNum(numMatrix, fil+1, col);
+				numMatrix=calcNum(numMatrix, fil+1, col+1);
 			}
 		}
 		imprimirMatriz(numMatrix);
+		return numMatrix;
+	}
+	
+	private int[][] calcNum(int[][] numMatrix,int fil,int col){
+		try{
+			if(numMatrix[fil][col]!=-1){
+			numMatrix[fil][col]=numMatrix[fil][col]+1;
+			}
+		}catch(Exception e){}
 		return numMatrix;
 	}
 	
@@ -130,14 +110,68 @@ public class MatrizCasillas {
 		for(int i=0;i<=filas-1;i++){
 			for(int j=0;j<=columnas-1;j++){
 				if(matrix[i][j]==-1){
-					matriz[i][j]=new CasillaMina();
+					matriz[i][j]=new CasillaMina(i,j);
 				}else if(matrix[i][j]>0){
-					matriz[i][j]=new CasillaNumero(matrix[i][j]);
+					matriz[i][j]=new CasillaNumero(matrix[i][j],i,j);
 				}
 				else if(matrix[i][j]==0){
-					matriz[i][j]=new CasillaBlanca();
+					matriz[i][j]=new CasillaBlanca(i,j);
 				}
 			}
 		}
+	}
+	
+	public ArrayList<Casilla> mostrarBlancas(int fi,int co){
+		ArrayList<Casilla>[] listas=new ArrayList[2];
+		ArrayList<Casilla> devol=new ArrayList<Casilla>();
+		ArrayList<Casilla> mirar=new ArrayList<Casilla>();
+		int index=0;
+		Casilla prueba=matriz[fi][co];
+		int fil,col;
+		mirar.add(prueba);
+		while(recorrer(mirar,index)){
+			prueba=mirar.get(index);
+			fil=prueba.getFila();
+			col=prueba.getColumna();
+			matriz[fil][col].cambiarVista();
+			devol.add(prueba);
+			listas=mirarBlancas(devol, mirar, fil-1, col);
+			mirar=listas[0];
+			devol=listas[1];
+			listas=mirarBlancas(devol, mirar, fil, col-1);
+			mirar=listas[0];
+			devol=listas[1];
+			listas=mirarBlancas(devol, mirar, fil, col+1);
+			mirar=listas[0];
+			devol=listas[1];
+			listas=mirarBlancas(devol, mirar, fil+1, col);
+			mirar=listas[0];
+			devol=listas[1];
+			index++;
+		}
+		return devol;
+	}
+	
+	private boolean recorrer(ArrayList<Casilla> mirar,int index){
+		boolean flag=false;
+		try{
+			mirar.get(index);
+			flag=true;
+		}catch(Exception e){}
+		return flag;
+	}
+	
+	private ArrayList<Casilla>[] mirarBlancas(ArrayList<Casilla> devol,ArrayList<Casilla> mirar,int fil,int col){
+		ArrayList<Casilla>[] listas=new ArrayList[2];
+		try{
+			if(matriz[fil][col]instanceof CasillaBlanca && !matriz[fil][col].getVista()){
+				mirar.add(matriz[fil][col]);
+			}else if(matriz[fil][col]instanceof CasillaNumero && !matriz[fil][col].getVista()){
+				devol.add(matriz[fil][col]);
+			}
+		}catch(Exception e){}
+		listas[0]=mirar;
+		listas[1]=devol;
+		return listas;
 	}
 }

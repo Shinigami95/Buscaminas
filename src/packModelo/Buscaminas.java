@@ -1,5 +1,7 @@
 package packModelo;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import packVentanas.VentanaBuscaminas;
@@ -61,6 +63,11 @@ public class Buscaminas {
 	
 	public void reinicio(){
 		Buscaminas.miBuscaminas=null;
+	}
+	
+	public ArrayList<Casilla> mostrarBlancas(int fil,int col){
+		ArrayList<Casilla> devol=Buscaminas.getBuscaminas().matriz.mostrarBlancas(fil,col);
+		return devol;
 	}
 
 }
