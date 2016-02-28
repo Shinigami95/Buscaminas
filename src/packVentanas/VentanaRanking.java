@@ -87,6 +87,7 @@ public class VentanaRanking extends JFrame {
 		if (textArea == null) {
 			textArea = new JTextArea();
 			textArea.setText(CatalogoUsuarios.getCatalogo().mejores());
+			textArea.setEditable(false);
 		}
 		return textArea;
 	}
