@@ -18,5 +18,13 @@ public class Usuario {
 	public Score getPuntos() {
 		return puntos;
 	}
+	
+	public String toStringParaFichero() {
+		return this.nombre+" \\ "+this.puntos.getPuntuacion();
+	}
+	
+	public void calcularPuntos(){
+		puntos.calcular();
+	}
 
 }

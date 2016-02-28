@@ -3,6 +3,10 @@ package packModelo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import packExcepciones.FicheroNoEncontradoException;
@@ -47,6 +51,42 @@ public class CatalogoUsuarios {
 		catch(NullPointerException e){e.printStackTrace();}
 		catch(Exception e){e.printStackTrace();}
 		System.out.println("Fin carga\n");
+	}
+	
+	public void guardarFichero() {
+		System.out.println("Guardando usuarios...");
+		Usuario uAux;
+		String linea;
+		FileWriter fw = null;
+		PrintWriter pw = null;
+		Iterator<Usuario> itr = CatalogoUsuarios.getCatalogo().getLista().getUsuarios();
+		try {
+			File archivo = new File(".","src/Usuarios.txt");
+			archivo.createNewFile();
+			fw = new FileWriter("src/Usuarios.txt");
+			pw = new PrintWriter(fw);
+			while (itr.hasNext()){
+				uAux = itr.next();
+				linea = uAux.toStringParaFichero();
+				pw.println(linea);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("ERROR, no es un path correcto.");
+		} catch (IOException e) {
+			System.out.println("ERROR, no se ha leido bien la linea.");
+		} finally {
+			try {
+				if( fw != null ){
+					fw.close();
+				}
+				if( pw != null ){
+					pw.close();
+				}
+			} catch (IOException e2){
+				e2.printStackTrace();
+			}
+		}
+		System.out.println("Archivo guardado.");
 	}
 	
 	public String mejores(){

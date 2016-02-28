@@ -12,15 +12,19 @@ public class Score {
 		this.puntuacion = pPuntos;
 	}
 
-	public String toString() {
-		return "score: "+this.puntuacion+"\t";
-	}
-
-	public String toStringParaFichero() {
-		return this.puntuacion+" \\ ";
-	}
-
 	public int getPuntuacion() {
 		return this.puntuacion;
+	}
+	
+	public void calcular(){
+		int punt=0;
+		if(Buscaminas.getBuscaminas().getNivel()==1){
+			punt=5000-(Reloj.getGestor().tiempoASegundos()*10);
+		}
+		else if(Buscaminas.getBuscaminas().getNivel()==2){
+			punt=12000-(Reloj.getGestor().tiempoASegundos()*10);}
+		else{
+			punt=20000-(Reloj.getGestor().tiempoASegundos()*10);}
+		puntuacion=puntuacion+punt;
 	}
 }

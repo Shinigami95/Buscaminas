@@ -25,9 +25,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class VentanaPrincipal extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JComboBox<String> comboBox;
@@ -52,6 +49,7 @@ public class VentanaPrincipal extends JFrame {
 		initialize();
 	}
 	private void initialize() {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(getControlador());
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

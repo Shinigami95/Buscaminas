@@ -1,14 +1,16 @@
 package packModelo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class ListaUsuarios {
 	
 	private Node<Usuario> first;
-	private Node<Usuario> last;
+	
 	
 	private static class Node<Usuario> {
         private Usuario usu;
         private Node<Usuario> next;
-        private Node<Usuario> prev;
 
         public Node(Usuario pUsu) {
             this.usu = pUsu;
@@ -23,14 +25,37 @@ public class ListaUsuarios {
 	
 	public void addUsuario(Usuario pUsu) {
         Node<Usuario> usu = new Node<Usuario>(pUsu);
+        Node<Usuario> usu1;
+        Node<Usuario> usu2;
+        int ptos=usu.getUsuario().getPuntos().getPuntuacion();
         if (estaVacia()) {
         	usu.next = null;
-        	usu.prev = null;
             first = usu;
-            last = usu;
-
         } else {
-            addOrdenado(usu);
+        	usu1=first;
+        	while(usu1!=null){
+        		usu2=usu1.next;
+        		if(ptos>=usu1.getUsuario().getPuntos().getPuntuacion()){
+        			usu.next=first;
+        			first=usu;
+        			break;
+        		}else{
+        			if(ptos<usu1.getUsuario().getPuntos().getPuntuacion()&&usu2==null){
+        				usu1.next=usu;
+        				usu.next=null;
+        				break;
+        			}else{
+        				if(ptos<usu1.getUsuario().getPuntos().getPuntuacion()&&usu2.getUsuario().getPuntos().getPuntuacion()<=ptos){
+        					usu1.next=usu;
+        					usu.next=usu2;
+        					break;
+        				}
+        				else{
+        					usu1=usu1.next;
+        				}
+        			}
+        		}
+        	}
         }
     }
 	
@@ -38,40 +63,10 @@ public class ListaUsuarios {
 		return (first==null);
 	}
 	
-	private void addOrdenado(Node<Usuario> pUsu){
-		Node<Usuario> usu1=first;
-		Node<Usuario> usu2;
-		boolean flag=false;
-		if(pUsu.getUsuario().getPuntos().getPuntuacion()>first.getUsuario().getPuntos().getPuntuacion()){
-			first.prev = pUsu;
-	        pUsu.next = first;
-	        pUsu.prev = null;
-	        first = pUsu;
-	        flag=true;
-		}
-		while(usu1!=last && flag==true){
-			usu1=usu1.next;
-			if(pUsu.getUsuario().getPuntos().getPuntuacion()>usu1.getUsuario().getPuntos().getPuntuacion()){
-				usu2=usu1.prev;
-				usu2.next=pUsu;
-				pUsu.prev=usu2;
-				pUsu.next=usu1;
-				usu1.prev=pUsu;
-				flag=true;
-			}
-		}
-		if(flag==false){
-			last.next=pUsu;
-			pUsu.prev=last;
-			last=pUsu;
-		}
-	}
-	
-	
 	public String mejores(){
 		String res="Nº\tUsuario\tPuntos\n";
 		if(first!=null){
-			Node<Usuario> usu1=first;
+			Node<Usuario> usu1=CatalogoUsuarios.getCatalogo().getLista().first;
 			Usuario usu=usu1.getUsuario();
 			int i=1;
 			res+=i+"º\t"+usu.getNombre()+"\t"+usu.getPuntos().getPuntuacion()+"\n";
@@ -85,4 +80,16 @@ public class ListaUsuarios {
 		}
 		return res;
 	}
+	
+	
+	public Iterator<Usuario> getUsuarios(){
+		ArrayList<Usuario> lista=new ArrayList<Usuario>();	
+		Node<Usuario> usu=first;
+		while (usu!=null){
+			lista.add(usu.getUsuario());
+			usu=usu.next;
+		}
+		return lista.iterator();
+	}
+	
 }

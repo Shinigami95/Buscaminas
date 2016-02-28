@@ -21,9 +21,6 @@ import javax.swing.JButton;
 
 public class VentanaRanking extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblRanking;
@@ -44,7 +41,8 @@ public class VentanaRanking extends JFrame {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(getControlador());
 		setBounds(100, 100, 450, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -112,7 +110,7 @@ public class VentanaRanking extends JFrame {
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+				volver();
 			}
 			
 			@Override

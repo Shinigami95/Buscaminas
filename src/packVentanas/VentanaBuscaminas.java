@@ -3,7 +3,6 @@ package packVentanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +12,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,12 +24,12 @@ import packModelo.Casilla;
 import packModelo.CasillaBlanca;
 import packModelo.CasillaMina;
 import packModelo.CasillaNumero;
+import packModelo.CatalogoUsuarios;
+import packModelo.Reloj;
 import packModelo.Usuario;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
@@ -39,9 +40,6 @@ import java.awt.GridLayout;
 
 public class VentanaBuscaminas extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panelRestart;
@@ -49,7 +47,7 @@ public class VentanaBuscaminas extends JFrame {
 	private JLabel label_1;
 	private JButton button;
 	private JLabel lblTiempo;
-	private JLabel lblTiempo_1;
+	private static JLabel lblTiempo_1;
 	private JPanel panelMatriz;
 	private Controlador controlador;
 	private JButton[][] botonMatriz;
@@ -63,6 +61,19 @@ public class VentanaBuscaminas extends JFrame {
 	public static VentanaBuscaminas getVentana(){
 		if(ventana==null){
 			ventana=new VentanaBuscaminas();
+			Reloj.getGestor().addObserver(new Observer() {
+				
+				@Override
+				public void update(Observable arg0, Object arg1) {
+					if(arg0 instanceof Reloj){
+						//tiempo
+						String tiempo = Reloj.getGestor().tiempoAString();
+						getLblTiempo_1().setText("     "+tiempo);
+					}
+			}
+			});
+			Reloj.getGestor().setTiempo(0);
+			Reloj.getGestor().reanudar();
 		}
 		return ventana;
 	}
@@ -71,7 +82,6 @@ public class VentanaBuscaminas extends JFrame {
 		initialize();
 	}
 	private void initialize() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		if(niv==1){
 			setBounds(100, 100, 450, 300);
 		}else if(niv==2){
@@ -85,6 +95,8 @@ public class VentanaBuscaminas extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanelRestart(), BorderLayout.NORTH);
 		contentPane.add(getPanelMatriz(), BorderLayout.CENTER);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(getControlador());
 	}
 	private JPanel getPanelRestart() {
 		if (panelRestart == null) {
@@ -156,7 +168,7 @@ public class VentanaBuscaminas extends JFrame {
 		}
 		return lblTiempo;
 	}
-	private JLabel getLblTiempo_1() {
+	private static JLabel getLblTiempo_1() {
 		if (lblTiempo_1 == null) {
 			lblTiempo_1 = new JLabel("Tiempo");
 		}
@@ -235,7 +247,7 @@ public class VentanaBuscaminas extends JFrame {
 		
 		@Override
 		public void windowClosing(WindowEvent e) {
-			System.exit(0);
+			salir();
 		}
 		
 		@Override
@@ -244,6 +256,7 @@ public class VentanaBuscaminas extends JFrame {
 				reinicio();
 			}
 		}
+		
 	}
 	
 	private void bloquearBotones(){
@@ -299,6 +312,7 @@ public class VentanaBuscaminas extends JFrame {
 	VentanaBuscaminas.getVentana().setVisible(true);}
 	
 	private void finalizar(){
+		Buscaminas.getBuscaminas().calcularPuntuacion();
 		int seleccion1=JOptionPane.showOptionDialog(null, "¿Quiere volver a jugar?", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"SI","NO","CANCELAR"}, "SI");
 		if(seleccion1==0){
 			int seleccion2=JOptionPane.showOptionDialog(null, "Escoge un nivel:", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"1","2","3"}, "1");
@@ -308,7 +322,16 @@ public class VentanaBuscaminas extends JFrame {
 			VentanaBuscaminas.getVentana().setVisible(false);
 			VentanaBuscaminas.getVentana().ventana=null;
 			VentanaBuscaminas.getVentana().setVisible(true);
+		}else if(seleccion1==1){
+			salir();
 		}
+	}
+	
+	private void salir(){
+		CatalogoUsuarios.getCatalogo().getLista().addUsuario(Buscaminas.getBuscaminas().getJugador());
+		CatalogoUsuarios.getCatalogo().guardarFichero();
+		VentanaPrincipal.getVentana().setVisible(true);
+		VentanaBuscaminas.getVentana().dispose();
 	}
 	
 	private void mostrarBlancas(int fil, int col){
@@ -345,9 +368,11 @@ public class VentanaBuscaminas extends JFrame {
 		}
 	}
 	
+	
 	private void controlMouse(MouseEvent e,int fila,int colu){
 	if(SwingUtilities.isLeftMouseButton(e)){
 		if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
+			Reloj.getGestor().pausar();
 			mostrarMina();
 			bloquearBotones();
 			Buscaminas.getBuscaminas().gameOver();
@@ -359,10 +384,15 @@ public class VentanaBuscaminas extends JFrame {
 		else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
 			mostrarBlancas(fila,colu);
 		}
-		if(terminado()){finalizar();
+		if(terminado()){
+			Reloj.getGestor().pausar();
+			finalizar();
 		}}
 		else if(SwingUtilities.isRightMouseButton(e)){
 			if(!Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).getVista())
 				cambiarMarca(fila,colu);
 		}}
-}
+	
+	}
+
+	

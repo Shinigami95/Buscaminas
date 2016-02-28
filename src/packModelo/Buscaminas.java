@@ -65,6 +65,10 @@ public class Buscaminas {
 		Buscaminas.miBuscaminas=null;
 	}
 	
+	public void calcularPuntuacion(){
+		jugador.calcularPuntos();
+	}
+	
 	public ArrayList<Casilla> mostrarBlancas(int fil,int col){
 		ArrayList<Casilla> devol=Buscaminas.getBuscaminas().matriz.mostrarBlancas(fil,col);
 		return devol;
