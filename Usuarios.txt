@@ -1,5 +1,6 @@
 lufi \ 5000
-Shinigami \ 4670
+Taliban \ 4730
+Shinigami \ 7000
 sanji \ 4550
 Taliban \ 4050
 jinbei \ 2300

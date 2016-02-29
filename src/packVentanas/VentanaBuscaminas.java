@@ -56,6 +56,7 @@ public class VentanaBuscaminas extends JFrame {
 	private int c=Buscaminas.getBuscaminas().getMatriz().getColumnas();
 	private int niv=Buscaminas.getBuscaminas().getNivel();
 	private int bombas=c*niv;
+	private boolean gameOver=false;
 	private static VentanaBuscaminas ventana;
 	
 	public static VentanaBuscaminas getVentana(){
@@ -277,6 +278,7 @@ public class VentanaBuscaminas extends JFrame {
 				}
 			}
 		}
+		gameOver=true;
 	}
 	
 	private boolean terminado(){
@@ -370,28 +372,29 @@ public class VentanaBuscaminas extends JFrame {
 	
 	
 	private void controlMouse(MouseEvent e,int fila,int colu){
-	if(SwingUtilities.isLeftMouseButton(e)){
-		if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
-			Reloj.getGestor().pausar();
-			mostrarMina();
-			bloquearBotones();
-			Buscaminas.getBuscaminas().gameOver();
-		}
-		else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
-			mostrarBoton(fila,colu);
-			Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
-		}
-		else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
-			mostrarBlancas(fila,colu);
-		}
-		if(terminado()){
-			Reloj.getGestor().pausar();
-			finalizar();
-		}}
-		else if(SwingUtilities.isRightMouseButton(e)){
-			if(!Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).getVista())
-				cambiarMarca(fila,colu);
-		}}
+		if(!gameOver){
+			if(SwingUtilities.isLeftMouseButton(e)){
+				if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
+					Reloj.getGestor().pausar();
+					mostrarMina();
+					bloquearBotones();
+					Buscaminas.getBuscaminas().gameOver();
+				}
+				else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
+					mostrarBoton(fila,colu);
+					Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
+				}
+				else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
+					mostrarBlancas(fila,colu);
+				}
+				if(terminado()){
+					Reloj.getGestor().pausar();
+					finalizar();
+				}}
+				else if(SwingUtilities.isRightMouseButton(e)){
+					if(!Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).getVista())
+						cambiarMarca(fila,colu);
+				}}}
 	
 	}
 
