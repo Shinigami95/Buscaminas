@@ -104,6 +104,7 @@ public class VentanaPrincipal extends JFrame {
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
+		setLocationRelativeTo(null);
 	}
 	private JComboBox<String> getComboBox() {
 		if (comboBox == null) {
@@ -192,8 +193,8 @@ public class VentanaPrincipal extends JFrame {
 			
 		}else{
 			usu=new Usuario(getTextField().getText(), 0);}
-		Buscaminas.getBuscaminas().login(usu);
-		Buscaminas.getBuscaminas().crearMatriz(Integer.parseInt(getComboBox().getSelectedItem().toString()));
+			Buscaminas.getBuscaminas().login(usu);
+			Buscaminas.getBuscaminas().crearMatriz(Integer.parseInt(getComboBox().getSelectedItem().toString()));
 		
 	}
 	

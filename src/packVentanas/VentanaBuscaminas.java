@@ -83,6 +83,7 @@ public class VentanaBuscaminas extends JFrame {
 		initialize();
 	}
 	private void initialize() {
+		
 		if(niv==1){
 			setBounds(100, 100, 450, 300);
 		}else if(niv==2){
@@ -96,6 +97,7 @@ public class VentanaBuscaminas extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanelRestart(), BorderLayout.NORTH);
 		contentPane.add(getPanelMatriz(), BorderLayout.CENTER);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(getControlador());
 	}
@@ -333,7 +335,8 @@ public class VentanaBuscaminas extends JFrame {
 		CatalogoUsuarios.getCatalogo().getLista().addUsuario(Buscaminas.getBuscaminas().getJugador());
 		CatalogoUsuarios.getCatalogo().guardarFichero();
 		VentanaPrincipal.getVentana().setVisible(true);
-		VentanaBuscaminas.getVentana().dispose();
+		VentanaBuscaminas.getVentana().setVisible(false);
+		VentanaBuscaminas.getVentana().ventana=null;
 	}
 	
 	private void mostrarBlancas(int fil, int col){
@@ -378,7 +381,7 @@ public class VentanaBuscaminas extends JFrame {
 					Reloj.getGestor().pausar();
 					mostrarMina();
 					bloquearBotones();
-					Buscaminas.getBuscaminas().gameOver();
+					JOptionPane.showMessageDialog(null, "GAME OVER");
 				}
 				else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
 					mostrarBoton(fila,colu);

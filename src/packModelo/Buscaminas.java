@@ -57,9 +57,6 @@ public class Buscaminas {
 		VentanaBuscaminas.getVentana().setVisible(true);
 	}
 	
-	public void gameOver(){
-		JOptionPane.showMessageDialog(null, "GAME OVER");
-	}
 	
 	public void reinicio(){
 		Buscaminas.miBuscaminas=null;

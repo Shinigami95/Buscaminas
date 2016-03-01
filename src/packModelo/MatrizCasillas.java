@@ -1,7 +1,6 @@
 package packModelo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class MatrizCasillas {
 	private static MatrizCasillas matrizCasilla;
