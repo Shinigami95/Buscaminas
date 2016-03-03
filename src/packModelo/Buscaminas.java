@@ -75,11 +75,7 @@ public class Buscaminas {
 	
 	
 	public void reinicio(){
-		int niv=nivel;
-		Usuario usr=jugador;
 		Buscaminas.miBuscaminas=null;
-		login(usr);
-		nivel=niv;
 	}
 	
 	public void calcularPuntuacion(){

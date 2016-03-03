@@ -301,7 +301,11 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	}
 	
 	private void reinicio(){
+		int niv=Buscaminas.getBuscaminas().getNivel();
+		Usuario usr=Buscaminas.getBuscaminas().getJugador();
 		Buscaminas.getBuscaminas().reinicio();
+		Buscaminas.getBuscaminas().login(usr);
+		Buscaminas.getBuscaminas().crearMatriz(niv);
 		VentanaBuscaminas.getVentana().setVisible(false);
 		VentanaBuscaminas.getVentana().ventana=null;
 		VentanaBuscaminas.getVentana().setVisible(true);}
