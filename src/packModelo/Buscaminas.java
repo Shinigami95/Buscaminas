@@ -2,10 +2,6 @@ package packModelo;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
-import packVentanas.VentanaBuscaminas;
-
 public class Buscaminas {
 	
 	private static Buscaminas miBuscaminas;
@@ -13,22 +9,17 @@ public class Buscaminas {
 	private int nivel;
 	private MatrizCasillas matriz;
 	private int minas;
+	private boolean gameOver;
 	
-	private Buscaminas() {}
+	private Buscaminas() {
+		gameOver=false;
+	}
 
 	public static Buscaminas getBuscaminas(){
 		if(miBuscaminas == null){
 			miBuscaminas = new Buscaminas();
 		}
 		return miBuscaminas;
-	}
-	
-	private void setNivel(int pNivel){
-		nivel = pNivel;
-	}
-	
-	private void setJugador(Usuario usu){
-		jugador = usu;	
 	}
 	
 	private void setMinas(int pMinas){
@@ -39,12 +30,12 @@ public class Buscaminas {
 		return jugador;
 	}
 	
-	public int getMinas(){
-		return minas;
+	public boolean getGameOver(){
+		return gameOver;
 	}
 	
-	private MatrizCasillas getMatriz(){
-		return matriz;
+	public int getMinas(){
+		return minas;
 	}
 	
 	public int getColumans(){
@@ -59,8 +50,8 @@ public class Buscaminas {
 		return nivel;
 	}
 	
-	public void login(Usuario usu) {
-		setJugador(usu);
+	public void login(Usuario pUsu) {
+		jugador=pUsu;
 	}
 	
 	public int masMinas(){
@@ -74,29 +65,36 @@ public class Buscaminas {
 	}
 	
 
-	public void crearMatriz(int level){
-		setNivel(level);
+	public void crearMatriz(int pLevel){
+		nivel=pLevel;
 		matriz = MatrizCasillas.getMatrizCasillas();
 		matriz.crearMatriz();
 		matriz.llenarMatriz();
-		setMinas(level*matriz.getColumnas());
+		setMinas(pLevel*matriz.getColumnas());
 	}
 	
 	
 	public void reinicio(){
+		int niv=nivel;
+		Usuario usr=jugador;
 		Buscaminas.miBuscaminas=null;
+		login(usr);
+		nivel=niv;
 	}
 	
 	public void calcularPuntuacion(){
 		jugador.calcularPuntos();
 	}
 	
-	public ArrayList<Casilla> mostrarBlancas(int fil,int col){
-		ArrayList<Casilla> devol=Buscaminas.getBuscaminas().matriz.mostrarBlancas(fil,col);
+	public ArrayList<Casilla> mostrarBlancas(int pFil,int pCol){
+		ArrayList<Casilla> devol=matriz.mostrarBlancas(pFil,pCol);
 		return devol;
 	}
 	
 	public boolean esMina(int pFil,int pCol){
+		if(matriz.esMina(pFil, pCol)){
+			gameOver=true;
+		}
 		return matriz.esMina(pFil, pCol);
 	}
 	

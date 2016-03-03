@@ -26,10 +26,6 @@ public class MatrizCasillas {
 		return columnas;
 	}
 	
-	/*public Casilla getCasilla(int pFil,int pCol){
-		return matriz[pFil][pCol];
-	}*///TODO
-	
 	public void crearMatriz(){
 		if(Buscaminas.getBuscaminas().getNivel()==1){
 			filas=7;
@@ -75,20 +71,20 @@ public class MatrizCasillas {
 		return numMatrix;
 	}
 	
-	private int[][] calcNum(int[][] numMatrix,int fil,int col){
+	private int[][] calcNum(int[][] pNumMatrix,int pFil,int pCol){
 		try{
-			if(numMatrix[fil][col]!=-1){
-			numMatrix[fil][col]=numMatrix[fil][col]+1;
+			if(pNumMatrix[pFil][pCol]!=-1){
+				pNumMatrix[pFil][pCol]=pNumMatrix[pFil][pCol]+1;
 			}
 		}catch(Exception e){}
-		return numMatrix;
+		return pNumMatrix;
 	}
 	
-	private void imprimirMatriz(int[][] numMatrix){
+	private void imprimirMatriz(int[][] pNumMatrix){
 		String res="";
 		for(int s=0;s<filas;s++){
 			for(int c=0;c<columnas;c++){
-				res+="\t"+numMatrix[s][c];
+				res+="\t"+pNumMatrix[s][c];
 			}
 			res+="\n";
 		}
@@ -105,27 +101,27 @@ public class MatrizCasillas {
 		return numMatrix;
 	}
 	
-	private void ponerCasillas(int[][] matrix){
+	private void ponerCasillas(int[][] pMatrix){
 		for(int i=0;i<=filas-1;i++){
 			for(int j=0;j<=columnas-1;j++){
-				if(matrix[i][j]==-1){
+				if(pMatrix[i][j]==-1){
 					matriz[i][j]=new CasillaMina(i,j);
-				}else if(matrix[i][j]>0){
-					matriz[i][j]=new CasillaNumero(matrix[i][j],i,j);
+				}else if(pMatrix[i][j]>0){
+					matriz[i][j]=new CasillaNumero(pMatrix[i][j],i,j);
 				}
-				else if(matrix[i][j]==0){
+				else if(pMatrix[i][j]==0){
 					matriz[i][j]=new CasillaBlanca(i,j);
 				}
 			}
 		}
 	}
 	
-	public ArrayList<Casilla> mostrarBlancas(int fi,int co){
+	public ArrayList<Casilla> mostrarBlancas(int pFil,int pCol){
 		ArrayList<Casilla>[] listas=new ArrayList[2];
 		ArrayList<Casilla> devol=new ArrayList<Casilla>();
 		ArrayList<Casilla> mirar=new ArrayList<Casilla>();
 		int index=0;
-		Casilla prueba=matriz[fi][co];
+		Casilla prueba=matriz[pFil][pCol];
 		int fil,col;
 		mirar.add(prueba);
 		while(recorrer(mirar,index)){
@@ -149,26 +145,26 @@ public class MatrizCasillas {
 		return devol;
 	}
 	
-	private boolean recorrer(ArrayList<Casilla> mirar,int index){
+	private boolean recorrer(ArrayList<Casilla> pMirar,int pIndex){
 		boolean flag=false;
 		try{
-			mirar.get(index);
+			pMirar.get(pIndex);
 			flag=true;
 		}catch(Exception e){}
 		return flag;
 	}
 	
-	private ArrayList<Casilla>[] mirarBlancas(ArrayList<Casilla> devol,ArrayList<Casilla> mirar,int fil,int col){
+	private ArrayList<Casilla>[] mirarBlancas(ArrayList<Casilla> pDevol,ArrayList<Casilla> pmirar,int pFil,int pCol){
 		ArrayList<Casilla>[] listas=new ArrayList[2];
 		try{
-			if(matriz[fil][col]instanceof CasillaBlanca && !matriz[fil][col].getVista()){
-				mirar.add(matriz[fil][col]);
-			}else if(matriz[fil][col]instanceof CasillaNumero && !matriz[fil][col].getVista()){
-				devol.add(matriz[fil][col]);
+			if(matriz[pFil][pCol]instanceof CasillaBlanca && !matriz[pFil][pCol].getVista()){
+				pmirar.add(matriz[pFil][pCol]);
+			}else if(matriz[pFil][pCol]instanceof CasillaNumero && !matriz[pFil][pCol].getVista()){
+				pDevol.add(matriz[pFil][pCol]);
 			}
 		}catch(Exception e){}
-		listas[0]=mirar;
-		listas[1]=devol;
+		listas[0]=pmirar;
+		listas[1]=pDevol;
 		return listas;
 	}
 	

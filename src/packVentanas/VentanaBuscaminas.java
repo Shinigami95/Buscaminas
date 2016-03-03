@@ -49,8 +49,6 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	private JPanel panelMatriz;
 	private Controlador controlador;
 	private JButton[][] botonMatriz;
-
-	private boolean gameOver=false;
 	private static VentanaBuscaminas ventana;
 	
 	public static VentanaBuscaminas getVentana(){
@@ -276,7 +274,6 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 				}
 			}
 		}
-		gameOver=true;
 	}
 	
 	private boolean terminado(){
@@ -304,11 +301,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	}
 	
 	private void reinicio(){
-		int niv=Buscaminas.getBuscaminas().getNivel();
-		Usuario usr=Buscaminas.getBuscaminas().getJugador();
 		Buscaminas.getBuscaminas().reinicio();
-		Buscaminas.getBuscaminas().login(usr);
-		Buscaminas.getBuscaminas().crearMatriz(niv);
 		VentanaBuscaminas.getVentana().setVisible(false);
 		VentanaBuscaminas.getVentana().ventana=null;
 		VentanaBuscaminas.getVentana().setVisible(true);}
@@ -371,7 +364,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	
 	
 	private void controlMouse(MouseEvent e,int pFil,int pCol){
-		if(!gameOver){
+		if(!Buscaminas.getBuscaminas().getGameOver()){
 			if(SwingUtilities.isLeftMouseButton(e)){
 				if(Buscaminas.getBuscaminas().esMina(pFil, pCol)){
 					Reloj.getGestor().pausar();

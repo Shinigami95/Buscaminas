@@ -8,9 +8,9 @@ public class Casilla {
 	private int columna;
 	private boolean marcada=false;
 	
-	public Casilla(int fi,int col) {
-		fila=fi;
-		columna=col;
+	public Casilla(int pFil,int pCol) {
+		fila=pFil;
+		columna=pCol;
 	}
 	
 	public boolean getVista(){
