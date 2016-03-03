@@ -1,9 +1,13 @@
 Shinigami \ 7000
 lufi \ 5000
 Taliban \ 4730
+Anonimo \ 4690
 sanji \ 4550
 Taliban \ 4050
 Unai \ 2740
+Anonimo \ 2540
+Anonimo \ 2510
+Anonimo \ 2500
 jinbei \ 2300
 robin \ 1500
 nami \ 1300
@@ -15,5 +19,4 @@ zoro \ 1010
 SHINIGAMI \ 940
 usopp \ 400
 brook \ 300
-Anonimo \ 0
 Anonimo \ 0

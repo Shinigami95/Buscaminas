@@ -195,7 +195,7 @@ public class VentanaPrincipal extends JFrame {
 			usu=new Usuario(getTextField().getText(), 0);}
 			Buscaminas.getBuscaminas().login(usu);
 			Buscaminas.getBuscaminas().crearMatriz(Integer.parseInt(getComboBox().getSelectedItem().toString()));
-		
+			VentanaBuscaminas.getVentana().setVisible(true);
 	}
 	
 	private void mostrarRanking(){

@@ -121,9 +121,7 @@ public class VentanaRanking extends JFrame {
 					volver();
 				}
 				
-			}
-
-			
+			}	
 		}
 	
 	private void volver(){

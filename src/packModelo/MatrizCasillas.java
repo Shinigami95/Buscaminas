@@ -26,9 +26,9 @@ public class MatrizCasillas {
 		return columnas;
 	}
 	
-	public Casilla getCasilla(int pFil,int pCol){
+	/*public Casilla getCasilla(int pFil,int pCol){
 		return matriz[pFil][pCol];
-	}
+	}*///TODO
 	
 	public void crearMatriz(){
 		if(Buscaminas.getBuscaminas().getNivel()==1){
@@ -170,5 +170,43 @@ public class MatrizCasillas {
 		listas[0]=mirar;
 		listas[1]=devol;
 		return listas;
+	}
+	
+	public boolean esMina(int pFil,int pCol){
+		if(matriz[pFil][pCol] instanceof CasillaMina){
+			return true;
+		}
+		else{return false;}
+	}
+	
+	public boolean esBlanca(int pFil,int pCol){
+		if(matriz[pFil][pCol] instanceof CasillaBlanca){
+			return true;
+		}
+		else{return false;}
+	}
+	
+	public boolean esNumero(int pFil,int pCol){
+		if(matriz[pFil][pCol] instanceof CasillaNumero){
+			return true;
+		}
+		else{return false;}
+	}
+	
+	public boolean cambiarMarcada(int pFil,int pCol){
+		return matriz[pFil][pCol].cambiarMarca();
+	}
+	
+	public boolean casillaVista(int pFil,int pCol){
+		return matriz[pFil][pCol].getVista();
+	}
+	
+	public void cambiarVistaCasilla(int pFil,int pCol){
+		 matriz[pFil][pCol].cambiarVista();	
+		 }
+	
+	public int numCasilla(int pFil,int pCol){
+		CasillaNumero cas=(CasillaNumero)matriz[pFil][pCol];
+		return cas.getNumero();
 	}
 }

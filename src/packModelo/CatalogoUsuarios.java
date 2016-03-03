@@ -26,8 +26,8 @@ public class CatalogoUsuarios {
 		return catalogo;
 	}
 	
-	public ListaUsuarios getLista(){
-		return lUsuarios;
+	public void addUsuario(Usuario pUsu){
+		lUsuarios.addUsuario(pUsu);
 	}
 	
 	public void cargarFichero() throws FicheroNoEncontradoException{
@@ -59,7 +59,7 @@ public class CatalogoUsuarios {
 		String linea;
 		FileWriter fw = null;
 		PrintWriter pw = null;
-		Iterator<Usuario> itr = CatalogoUsuarios.getCatalogo().getLista().getUsuarios();
+		Iterator<Usuario> itr = lUsuarios.getUsuarios();
 		try {
 			File archivo = new File(".","Usuarios.txt");
 			archivo.createNewFile();
@@ -90,7 +90,7 @@ public class CatalogoUsuarios {
 	}
 	
 	public String mejores(){
-		return CatalogoUsuarios.getCatalogo().getLista().mejores();
+		return lUsuarios.mejores();
 
 	}
 

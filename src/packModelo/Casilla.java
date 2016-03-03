@@ -29,12 +29,10 @@ public class Casilla {
 		vista=true;
 	}
 	
-	public boolean getMarcada(){
-		return marcada;
-	}
 	
-	public void cambiarMarca(){
+	public boolean cambiarMarca(){
 		marcada=!marcada;
+		return marcada;
 	}
 	
 }

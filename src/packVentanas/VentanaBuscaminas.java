@@ -22,8 +22,6 @@ import javax.swing.border.EmptyBorder;
 import packModelo.Buscaminas;
 import packModelo.Casilla;
 import packModelo.CasillaBlanca;
-import packModelo.CasillaMina;
-import packModelo.CasillaNumero;
 import packModelo.CatalogoUsuarios;
 import packModelo.Reloj;
 import packModelo.Usuario;
@@ -38,7 +36,7 @@ import javax.swing.SwingUtilities;
 
 import java.awt.GridLayout;
 
-public class VentanaBuscaminas extends JFrame {
+public class VentanaBuscaminas extends JFrame implements Observer{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -47,46 +45,35 @@ public class VentanaBuscaminas extends JFrame {
 	private JLabel label_1;
 	private JButton button;
 	private JLabel lblTiempo;
-	private static JLabel lblTiempo_1;
+	private JLabel lblTiempo_1;
 	private JPanel panelMatriz;
 	private Controlador controlador;
 	private JButton[][] botonMatriz;
-	private Usuario user=Buscaminas.getBuscaminas().getJugador();
-	private int f=Buscaminas.getBuscaminas().getMatriz().getFilas();
-	private int c=Buscaminas.getBuscaminas().getMatriz().getColumnas();
-	private int niv=Buscaminas.getBuscaminas().getNivel();
-	private int bombas=c*niv;
+
 	private boolean gameOver=false;
 	private static VentanaBuscaminas ventana;
 	
 	public static VentanaBuscaminas getVentana(){
 		if(ventana==null){
 			ventana=new VentanaBuscaminas();
-			Reloj.getGestor().addObserver(new Observer() {
-				
-				@Override
-				public void update(Observable arg0, Object arg1) {
-					if(arg0 instanceof Reloj){
-						//tiempo
-						String tiempo = Reloj.getGestor().tiempoAString();
-						getLblTiempo_1().setText("     "+tiempo);
-					}
-			}
-			});
-			Reloj.getGestor().setTiempo(0);
-			Reloj.getGestor().reanudar();
+			ventana.cargarBuscaminas();
 		}
 		return ventana;
+	}
+	
+	private void cargarBuscaminas(){
+		Reloj.getGestor().addObserver(this);
+		Reloj.getGestor().setTiempo(0);
+		Reloj.getGestor().reanudar();
 	}
 
 	private VentanaBuscaminas() {
 		initialize();
 	}
 	private void initialize() {
-		
-		if(niv==1){
+		if(Buscaminas.getBuscaminas().getNivel()==1){
 			setBounds(100, 100, 450, 300);
-		}else if(niv==2){
+		}else if(Buscaminas.getBuscaminas().getNivel()==2){
 			setBounds(100, 100, 650, 450);
 		}else{
 			setExtendedState(MAXIMIZED_BOTH);
@@ -153,7 +140,7 @@ public class VentanaBuscaminas extends JFrame {
 	}
 	private JLabel getLabel_1() {
 		if (label_1 == null) {
-			label_1 = new JLabel(""+bombas);
+			label_1 = new JLabel(""+Buscaminas.getBuscaminas().getMinas());
 		}
 		return label_1;
 	}
@@ -171,7 +158,7 @@ public class VentanaBuscaminas extends JFrame {
 		}
 		return lblTiempo;
 	}
-	private static JLabel getLblTiempo_1() {
+	private JLabel getLblTiempo_1() {
 		if (lblTiempo_1 == null) {
 			lblTiempo_1 = new JLabel("Tiempo");
 		}
@@ -180,13 +167,13 @@ public class VentanaBuscaminas extends JFrame {
 	private JPanel getPanelMatriz() {
 		if (panelMatriz == null) {
 			panelMatriz = new JPanel();
-			if(niv==1){panelMatriz.setLayout(new GridLayout(7, 10, 0, 0));}
-			else if(niv==2){panelMatriz.setLayout(new GridLayout(10, 15, 0, 0));}
+			if(Buscaminas.getBuscaminas().getNivel()==1){panelMatriz.setLayout(new GridLayout(7, 10, 0, 0));}
+			else if(Buscaminas.getBuscaminas().getNivel()==2){panelMatriz.setLayout(new GridLayout(10, 15, 0, 0));}
 			else{panelMatriz.setLayout(new GridLayout(12, 25, 0, 0));}
 			panelMatriz.setBackground(Color.WHITE);
 			getBotonesMatriz();
-			for(int i=0;i<f;i++){
-				for(int j=0;j<c;j++){
+			for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
+				for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
 					panelMatriz.add(getCasilla(i, j));
 				}
 			}
@@ -196,9 +183,9 @@ public class VentanaBuscaminas extends JFrame {
 	}
 	private JButton[][] getBotonesMatriz() {
 		if (botonMatriz == null) {
-			botonMatriz = new JButton[f][c];
-			for(int i=0;i<f;i++){
-				for(int j=0;j<c;j++){
+			botonMatriz = new JButton[Buscaminas.getBuscaminas().getFilas()][Buscaminas.getBuscaminas().getColumans()];
+			for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
+				for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
 					getCasilla(i, j);
 				}
 			}
@@ -262,18 +249,27 @@ public class VentanaBuscaminas extends JFrame {
 		
 	}
 	
+	@Override
+	public void update(Observable o, Object arg) {
+		if(o instanceof Reloj){
+			//tiempo
+			String tiempo = Reloj.getGestor().tiempoAString();
+			getLblTiempo_1().setText("     "+tiempo);
+		}	
+	}
+	
 	private void bloquearBotones(){
-		for(int i=0;i<f;i++){
-			for(int j=0;j<c;j++){
+		for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
+			for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
 				getCasilla(i, j).setEnabled(false);;
 			}
 		}
 	}
 	
 	private void mostrarMina(){
-		for(int i=0;i<f;i++){
-			for(int j=0;j<c;j++){
-				if(Buscaminas.getBuscaminas().getMatriz().getCasilla(i, j) instanceof CasillaMina){
+		for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
+			for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
+				if(Buscaminas.getBuscaminas().esMina(i, j)){
 					getCasilla(i, j).setFont(new Font("Tahoma", Font.BOLD, 11));
 					getCasilla(i, j).setBackground(Color.WHITE);
 					getCasilla(i, j).setText("X");
@@ -286,42 +282,45 @@ public class VentanaBuscaminas extends JFrame {
 	private boolean terminado(){
 		boolean terminado=false;
 		int cont=0;
-		for(int i=0;i<f;i++){
-			for(int j=0;j<c;j++){
-				if(!Buscaminas.getBuscaminas().getMatriz().getCasilla(i, j).getVista()){
+		for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
+			for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
+				if(!Buscaminas.getBuscaminas().casillaVista(i, j)){
 					cont++;
 				}
 			}
 		}
-		if(cont==c*niv){
+		if(cont==Buscaminas.getBuscaminas().getColumans()*Buscaminas.getBuscaminas().getNivel()){
 			terminado=true;
 		}
 		return terminado;
 	}
 	
-	private void mostrarBoton(int fila,int colu){
-		Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
-		CasillaNumero cas=(CasillaNumero) Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu);
-		getCasilla(fila, colu).setText(""+cas.getNumero());
-		getCasilla(fila, colu).setEnabled(false);
-		getCasilla(fila, colu).setBackground(Color.WHITE);
-		getCasilla(fila, colu).setForeground(Color.BLACK);
+	private void mostrarBoton(int pFil,int pCol){
+		Buscaminas.getBuscaminas().cambiarVistaCasilla(pFil, pCol);
+		getCasilla(pFil, pCol).setText(""+Buscaminas.getBuscaminas().numCasilla(pFil, pCol));
+		getCasilla(pFil, pCol).setEnabled(false);
+		getCasilla(pFil, pCol).setBackground(Color.WHITE);
+		getCasilla(pFil, pCol).setForeground(Color.BLACK);
 	}
 	
-	private void reinicio(){Buscaminas.getBuscaminas().reinicio();
-	Buscaminas.getBuscaminas().login(user);
-	Buscaminas.getBuscaminas().crearMatriz(niv);
-	VentanaBuscaminas.getVentana().setVisible(false);
-	VentanaBuscaminas.getVentana().ventana=null;
-	VentanaBuscaminas.getVentana().setVisible(true);}
+	private void reinicio(){
+		int niv=Buscaminas.getBuscaminas().getNivel();
+		Usuario usr=Buscaminas.getBuscaminas().getJugador();
+		Buscaminas.getBuscaminas().reinicio();
+		Buscaminas.getBuscaminas().login(usr);
+		Buscaminas.getBuscaminas().crearMatriz(niv);
+		VentanaBuscaminas.getVentana().setVisible(false);
+		VentanaBuscaminas.getVentana().ventana=null;
+		VentanaBuscaminas.getVentana().setVisible(true);}
 	
 	private void finalizar(){
 		Buscaminas.getBuscaminas().calcularPuntuacion();
 		int seleccion1=JOptionPane.showOptionDialog(null, "¿Quiere volver a jugar?", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"SI","NO","CANCELAR"}, "SI");
 		if(seleccion1==0){
 			int seleccion2=JOptionPane.showOptionDialog(null, "Escoge un nivel:", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"1","2","3"}, "1");
+			Usuario usu=Buscaminas.getBuscaminas().getJugador();
 			Buscaminas.getBuscaminas().reinicio();
-			Buscaminas.getBuscaminas().login(user);
+			Buscaminas.getBuscaminas().login(usu);
 			Buscaminas.getBuscaminas().crearMatriz(seleccion2+1);
 			VentanaBuscaminas.getVentana().setVisible(false);
 			VentanaBuscaminas.getVentana().ventana=null;
@@ -332,7 +331,7 @@ public class VentanaBuscaminas extends JFrame {
 	}
 	
 	private void salir(){
-		CatalogoUsuarios.getCatalogo().getLista().addUsuario(Buscaminas.getBuscaminas().getJugador());
+		CatalogoUsuarios.getCatalogo().addUsuario(Buscaminas.getBuscaminas().getJugador());
 		CatalogoUsuarios.getCatalogo().guardarFichero();
 		VentanaPrincipal.getVentana().setVisible(true);
 		VentanaBuscaminas.getVentana().setVisible(false);
@@ -359,44 +358,41 @@ public class VentanaBuscaminas extends JFrame {
 		getCasilla(fila, colu).setText("");
 	}
 	
-	private void cambiarMarca(int fil,int col){
-		Buscaminas.getBuscaminas().getMatriz().getCasilla(fil, col).cambiarMarca();
-		if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fil, col).getMarcada()){
-			bombas--;
-			getCasilla(fil, col).setFont(new Font("Tahoma", Font.BOLD, 11));
-			getCasilla(fil, col).setText("B");
-			getLabel_1().setText(""+bombas);
+	private void cambiarMarca(int pFil,int pCol){
+		if(Buscaminas.getBuscaminas().cambiarMarcada(pFil, pCol)){
+			getCasilla(pFil, pCol).setFont(new Font("Tahoma", Font.BOLD, 11));
+			getCasilla(pFil, pCol).setText("B");
+			getLabel_1().setText(""+Buscaminas.getBuscaminas().menosMinas());
 		}else{
-			bombas++;
-			getCasilla(fil, col).setText("");
-			getLabel_1().setText(""+bombas);
+			getCasilla(pFil, pCol).setText("");
+			getLabel_1().setText(""+Buscaminas.getBuscaminas().masMinas());
 		}
 	}
 	
 	
-	private void controlMouse(MouseEvent e,int fila,int colu){
+	private void controlMouse(MouseEvent e,int pFil,int pCol){
 		if(!gameOver){
 			if(SwingUtilities.isLeftMouseButton(e)){
-				if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaMina){
+				if(Buscaminas.getBuscaminas().esMina(pFil, pCol)){
 					Reloj.getGestor().pausar();
 					mostrarMina();
 					bloquearBotones();
 					JOptionPane.showMessageDialog(null, "GAME OVER");
 				}
-				else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaNumero){
-					mostrarBoton(fila,colu);
-					Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).cambiarVista();
+				else if(Buscaminas.getBuscaminas().esNumero(pFil, pCol)){
+					mostrarBoton(pFil,pCol);
+					Buscaminas.getBuscaminas().cambiarVistaCasilla(pFil, pCol);;
 				}
-				else if(Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu) instanceof CasillaBlanca){
-					mostrarBlancas(fila,colu);
+				else if(Buscaminas.getBuscaminas().esBlanca(pFil, pCol)){
+					mostrarBlancas(pFil,pCol);
 				}
 				if(terminado()){
 					Reloj.getGestor().pausar();
 					finalizar();
 				}}
 				else if(SwingUtilities.isRightMouseButton(e)){
-					if(!Buscaminas.getBuscaminas().getMatriz().getCasilla(fila, colu).getVista())
-						cambiarMarca(fila,colu);
+					if(!Buscaminas.getBuscaminas().casillaVista(pFil, pCol))
+						cambiarMarca(pFil,pCol);
 				}}}
 	
 	}

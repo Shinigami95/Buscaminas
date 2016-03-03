@@ -66,7 +66,7 @@ public class ListaUsuarios {
 	public String mejores(){
 		String res="Nº\tUsuario\tPuntos\n";
 		if(first!=null){
-			Node<Usuario> usu1=CatalogoUsuarios.getCatalogo().getLista().first;
+			Node<Usuario> usu1=first;
 			Usuario usu=usu1.getUsuario();
 			int i=1;
 			res+=i+"º\t"+usu.getNombre()+"\t"+usu.getPuntos().getPuntuacion()+"\n";

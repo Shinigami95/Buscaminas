@@ -12,6 +12,7 @@ public class Buscaminas {
 	private Usuario jugador;
 	private int nivel;
 	private MatrizCasillas matriz;
+	private int minas;
 	
 	private Buscaminas() {}
 
@@ -27,17 +28,31 @@ public class Buscaminas {
 	}
 	
 	private void setJugador(Usuario usu){
-		jugador = usu;
-		
+		jugador = usu;	
+	}
+	
+	private void setMinas(int pMinas){
+		minas=pMinas;	
 	}
 	
 	public Usuario getJugador(){
 		return jugador;
-		
 	}
 	
-	public MatrizCasillas getMatriz(){
+	public int getMinas(){
+		return minas;
+	}
+	
+	private MatrizCasillas getMatriz(){
 		return matriz;
+	}
+	
+	public int getColumans(){
+		return matriz.getColumnas();
+	}
+	
+	public int getFilas(){
+		return matriz.getFilas();
 	}
 	
 	public int getNivel(){
@@ -48,13 +63,23 @@ public class Buscaminas {
 		setJugador(usu);
 	}
 	
+	public int masMinas(){
+		minas++;
+		return minas;
+	}
+	
+	public int menosMinas(){
+		minas--;
+		return minas;
+	}
+	
 
 	public void crearMatriz(int level){
 		setNivel(level);
 		matriz = MatrizCasillas.getMatrizCasillas();
 		matriz.crearMatriz();
 		matriz.llenarMatriz();
-		VentanaBuscaminas.getVentana().setVisible(true);
+		setMinas(level*matriz.getColumnas());
 	}
 	
 	
@@ -69,6 +94,34 @@ public class Buscaminas {
 	public ArrayList<Casilla> mostrarBlancas(int fil,int col){
 		ArrayList<Casilla> devol=Buscaminas.getBuscaminas().matriz.mostrarBlancas(fil,col);
 		return devol;
+	}
+	
+	public boolean esMina(int pFil,int pCol){
+		return matriz.esMina(pFil, pCol);
+	}
+	
+	public boolean esBlanca(int pFil,int pCol){
+		return matriz.esBlanca(pFil, pCol);
+	}
+	
+	public boolean esNumero(int pFil,int pCol){
+		return matriz.esNumero(pFil, pCol);
+	}
+	
+	public boolean cambiarMarcada(int pFil,int pCol){
+		return matriz.cambiarMarcada(pFil,pCol);
+	}
+	
+	public boolean casillaVista(int pFil,int pCol){
+		return matriz.casillaVista(pFil,pCol);
+	}
+	
+	public void cambiarVistaCasilla(int pFil,int pCol){
+		 matriz.cambiarVistaCasilla(pFil,pCol);	
+		 }
+	
+	public int numCasilla(int pFil,int pCol){
+		return matriz.numCasilla(pFil, pCol);
 	}
 
 }
