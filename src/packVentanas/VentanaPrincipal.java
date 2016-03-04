@@ -4,7 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import packExcepciones.FicheroNoEncontradoException;
 import packModelo.Buscaminas;
+import packModelo.CatalogoUsuarios;
+import packModelo.Sesion;
 import packModelo.Usuario;
 
 import javax.swing.GroupLayout;
@@ -193,8 +196,9 @@ public class VentanaPrincipal extends JFrame {
 			
 		}else{
 			usu=new Usuario(getTextField().getText(), 0);}
-			Buscaminas.getBuscaminas().login(usu);
-			Buscaminas.getBuscaminas().crearMatriz(Integer.parseInt(getComboBox().getSelectedItem().toString()));
+			Sesion.getSesion().login(usu);
+			Sesion.getSesion().jugarNivel(Integer.parseInt(getComboBox().getSelectedItem().toString()));
+			Buscaminas.getBuscaminas().crearMatriz();
 			VentanaBuscaminas.getVentana().setVisible(true);
 	}
 	

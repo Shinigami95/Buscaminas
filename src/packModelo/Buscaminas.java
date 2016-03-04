@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Buscaminas {
 	
 	private static Buscaminas miBuscaminas;
-	private Usuario jugador;
-	private int nivel;
 	private MatrizCasillas matriz;
 	private int minas;
 	private boolean gameOver;
@@ -26,10 +24,6 @@ public class Buscaminas {
 		minas=pMinas;	
 	}
 	
-	public Usuario getJugador(){
-		return jugador;
-	}
-	
 	public boolean getGameOver(){
 		return gameOver;
 	}
@@ -46,14 +40,6 @@ public class Buscaminas {
 		return matriz.getFilas();
 	}
 	
-	public int getNivel(){
-		return nivel;
-	}
-	
-	public void login(Usuario pUsu) {
-		jugador=pUsu;
-	}
-	
 	public int masMinas(){
 		minas++;
 		return minas;
@@ -65,21 +51,16 @@ public class Buscaminas {
 	}
 	
 
-	public void crearMatriz(int pLevel){
-		nivel=pLevel;
+	public void crearMatriz(){
 		matriz = MatrizCasillas.getMatrizCasillas();
 		matriz.crearMatriz();
 		matriz.llenarMatriz();
-		setMinas(pLevel*matriz.getColumnas());
+		setMinas(Sesion.getSesion().getNivel()*matriz.getColumnas());
 	}
 	
 	
 	public void reinicio(){
 		Buscaminas.miBuscaminas=null;
-	}
-	
-	public void calcularPuntuacion(){
-		jugador.calcularPuntos();
 	}
 	
 	public ArrayList<Casilla> mostrarBlancas(int pFil,int pCol){
@@ -104,6 +85,10 @@ public class Buscaminas {
 	
 	public boolean cambiarMarcada(int pFil,int pCol){
 		return matriz.cambiarMarcada(pFil,pCol);
+	}
+	
+	public boolean estaMarcada(int pFil,int pCol){
+		return matriz.estaMarcada(pFil,pCol);
 	}
 	
 	public boolean casillaVista(int pFil,int pCol){

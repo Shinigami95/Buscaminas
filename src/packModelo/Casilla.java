@@ -35,4 +35,8 @@ public class Casilla {
 		return marcada;
 	}
 	
+	public boolean estaMarcada(){
+		return marcada;
+	}
+	
 }

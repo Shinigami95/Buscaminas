@@ -24,6 +24,7 @@ import packModelo.Casilla;
 import packModelo.CasillaBlanca;
 import packModelo.CatalogoUsuarios;
 import packModelo.Reloj;
+import packModelo.Sesion;
 import packModelo.Usuario;
 
 import javax.swing.GroupLayout;
@@ -69,9 +70,9 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 		initialize();
 	}
 	private void initialize() {
-		if(Buscaminas.getBuscaminas().getNivel()==1){
+		if(Sesion.getSesion().getNivel()==1){
 			setBounds(100, 100, 450, 300);
-		}else if(Buscaminas.getBuscaminas().getNivel()==2){
+		}else if(Sesion.getSesion().getNivel()==2){
 			setBounds(100, 100, 650, 450);
 		}else{
 			setExtendedState(MAXIMIZED_BOTH);
@@ -165,8 +166,8 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	private JPanel getPanelMatriz() {
 		if (panelMatriz == null) {
 			panelMatriz = new JPanel();
-			if(Buscaminas.getBuscaminas().getNivel()==1){panelMatriz.setLayout(new GridLayout(7, 10, 0, 0));}
-			else if(Buscaminas.getBuscaminas().getNivel()==2){panelMatriz.setLayout(new GridLayout(10, 15, 0, 0));}
+			if(Sesion.getSesion().getNivel()==1){panelMatriz.setLayout(new GridLayout(7, 10, 0, 0));}
+			else if(Sesion.getSesion().getNivel()==2){panelMatriz.setLayout(new GridLayout(10, 15, 0, 0));}
 			else{panelMatriz.setLayout(new GridLayout(12, 25, 0, 0));}
 			panelMatriz.setBackground(Color.WHITE);
 			getBotonesMatriz();
@@ -286,7 +287,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 				}
 			}
 		}
-		if(cont==Buscaminas.getBuscaminas().getColumans()*Buscaminas.getBuscaminas().getNivel()){
+		if(cont==Buscaminas.getBuscaminas().getColumans()*Sesion.getSesion().getNivel()){
 			terminado=true;
 		}
 		return terminado;
@@ -301,24 +302,21 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	}
 	
 	private void reinicio(){
-		int niv=Buscaminas.getBuscaminas().getNivel();
-		Usuario usr=Buscaminas.getBuscaminas().getJugador();
+
 		Buscaminas.getBuscaminas().reinicio();
-		Buscaminas.getBuscaminas().login(usr);
-		Buscaminas.getBuscaminas().crearMatriz(niv);
+		Buscaminas.getBuscaminas().crearMatriz();
 		VentanaBuscaminas.getVentana().setVisible(false);
 		VentanaBuscaminas.getVentana().ventana=null;
 		VentanaBuscaminas.getVentana().setVisible(true);}
 	
 	private void finalizar(){
-		Buscaminas.getBuscaminas().calcularPuntuacion();
+		Sesion.getSesion().calcularPuntuacion();
 		int seleccion1=JOptionPane.showOptionDialog(null, "¿Quiere volver a jugar?", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"SI","NO","CANCELAR"}, "SI");
 		if(seleccion1==0){
 			int seleccion2=JOptionPane.showOptionDialog(null, "Escoge un nivel:", "Buscaminas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, Icono.getIcono().getMina(), new Object[]{"1","2","3"}, "1");
-			Usuario usu=Buscaminas.getBuscaminas().getJugador();
+			Sesion.getSesion().jugarNivel(seleccion2+1);
 			Buscaminas.getBuscaminas().reinicio();
-			Buscaminas.getBuscaminas().login(usu);
-			Buscaminas.getBuscaminas().crearMatriz(seleccion2+1);
+			Buscaminas.getBuscaminas().crearMatriz();
 			VentanaBuscaminas.getVentana().setVisible(false);
 			VentanaBuscaminas.getVentana().ventana=null;
 			VentanaBuscaminas.getVentana().setVisible(true);
@@ -328,8 +326,9 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	}
 	
 	private void salir(){
-		CatalogoUsuarios.getCatalogo().addUsuario(Buscaminas.getBuscaminas().getJugador());
+		CatalogoUsuarios.getCatalogo().addUsuario(Sesion.getSesion().getJugador());
 		CatalogoUsuarios.getCatalogo().guardarFichero();
+		Sesion.getSesion().reinicio();
 		VentanaPrincipal.getVentana().setVisible(true);
 		VentanaBuscaminas.getVentana().setVisible(false);
 		VentanaBuscaminas.getVentana().ventana=null;
@@ -366,6 +365,12 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 		}
 	}
 	
+	private void estaMarcada(int pFil,int pCol){
+		if(Buscaminas.getBuscaminas().estaMarcada(pFil,pCol)){
+			getLabel_1().setText(""+Buscaminas.getBuscaminas().masMinas());
+		}
+	}
+	
 	
 	private void controlMouse(MouseEvent e,int pFil,int pCol){
 		if(!Buscaminas.getBuscaminas().getGameOver()){
@@ -377,10 +382,12 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 					JOptionPane.showMessageDialog(null, "GAME OVER");
 				}
 				else if(Buscaminas.getBuscaminas().esNumero(pFil, pCol)){
+					estaMarcada(pFil, pCol);
 					mostrarBoton(pFil,pCol);
 					Buscaminas.getBuscaminas().cambiarVistaCasilla(pFil, pCol);;
 				}
 				else if(Buscaminas.getBuscaminas().esBlanca(pFil, pCol)){
+					estaMarcada(pFil, pCol);
 					mostrarBlancas(pFil,pCol);
 				}
 				if(terminado()){

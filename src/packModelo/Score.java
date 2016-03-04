@@ -18,11 +18,11 @@ public class Score {
 	
 	public void calcular(){
 		int punt=0;
-		if(Buscaminas.getBuscaminas().getNivel()==1){
+		if(Sesion.getSesion().getNivel()==1){
 			//5 mins
 			punt=3000-(Reloj.getGestor().tiempoASegundos()*10);
 		}
-		else if(Buscaminas.getBuscaminas().getNivel()==2){
+		else if(Sesion.getSesion().getNivel()==2){
 			//12 mins
 			punt=7200-(Reloj.getGestor().tiempoASegundos()*10);}
 		else{

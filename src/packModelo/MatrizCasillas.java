@@ -27,10 +27,10 @@ public class MatrizCasillas {
 	}
 	
 	public void crearMatriz(){
-		if(Buscaminas.getBuscaminas().getNivel()==1){
+		if(Sesion.getSesion().getNivel()==1){
 			filas=7;
 			columnas=10;
-		}else if(Buscaminas.getBuscaminas().getNivel()==2){
+		}else if(Sesion.getSesion().getNivel()==2){
 			filas=10;
 			columnas=15;
 		}else{
@@ -50,7 +50,7 @@ public class MatrizCasillas {
 		int fil,col;
 		int i=0;
 		//Mientras las minas esten sin poner
-		while(i<columnas*Buscaminas.getBuscaminas().getNivel()){
+		while(i<columnas*Sesion.getSesion().getNivel()){
 			//La colocamos aleatoriamente
 			fil=(int) (Math.random()*filas-1);
 			col=(int) (Math.random()*columnas-1);
@@ -191,6 +191,10 @@ public class MatrizCasillas {
 	
 	public boolean cambiarMarcada(int pFil,int pCol){
 		return matriz[pFil][pCol].cambiarMarca();
+	}
+	
+	public boolean estaMarcada(int pFil,int pCol){
+		return matriz[pFil][pCol].estaMarcada();
 	}
 	
 	public boolean casillaVista(int pFil,int pCol){
