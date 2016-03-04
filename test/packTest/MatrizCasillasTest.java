@@ -6,6 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import packModelo.MatrizCasillas;
+import packModelo.Sesion;
+
 public class MatrizCasillasTest {
 
 	@Before
@@ -18,52 +21,61 @@ public class MatrizCasillasTest {
 
 	@Test
 	public void testCrearMatriz() {
-		fail("Not yet implemented");
+		//Nivel 1
+		int nivel = 1;
+		Sesion.getSesion().jugarNivel(nivel);
+		MatrizCasillas.getMatrizCasillas().crearMatriz();
+		MatrizCasillas.getMatrizCasillas().llenarMatriz();
+		System.out.println("Nivel 1");
+		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
+		System.out.println("");
+		int cont = 0;
+		for(int i = 0; i<MatrizCasillas.getMatrizCasillas().getFilas(); i++){
+			for(int j = 0; j<MatrizCasillas.getMatrizCasillas().getColumnas(); j++){
+				if(MatrizCasillas.getMatrizCasillas().esMina(i, j)){
+					cont++;
+				}
+			}
+		}
+		System.out.println("Hay " + cont + " minas");
+		System.out.println("");
+		assertEquals(cont, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		//Nivel 2
+		nivel = 2;
+		Sesion.getSesion().jugarNivel(nivel);
+		MatrizCasillas.getMatrizCasillas().crearMatriz();
+		MatrizCasillas.getMatrizCasillas().llenarMatriz();
+		System.out.println("Nivel 2");
+		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
+		System.out.println("");
+		cont = 0;
+		for(int i = 0; i<MatrizCasillas.getMatrizCasillas().getFilas(); i++){
+			for(int j = 0; j<MatrizCasillas.getMatrizCasillas().getColumnas(); j++){
+				if(MatrizCasillas.getMatrizCasillas().esMina(i, j)){
+					cont++;
+				}
+			}
+		}
+		System.out.println("Hay " + cont + " minas");
+		System.out.println("");
+		assertEquals(cont, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		//Nivel 3
+		nivel = 3;
+		Sesion.getSesion().jugarNivel(nivel);
+		MatrizCasillas.getMatrizCasillas().crearMatriz();
+		MatrizCasillas.getMatrizCasillas().llenarMatriz();
+		System.out.println("Nivel 3");
+		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
+		cont = 0;
+		for(int i = 0; i<MatrizCasillas.getMatrizCasillas().getFilas(); i++){
+			for(int j = 0; j<MatrizCasillas.getMatrizCasillas().getColumnas(); j++){
+				if(MatrizCasillas.getMatrizCasillas().esMina(i, j)){
+					cont++;
+				}
+			}
+		}
+		System.out.println("Hay " + cont + " minas");
+		System.out.println("");
+		assertEquals(cont, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
 	}
-
-	@Test
-	public void testLlenarMatriz() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testMostrarBlancas() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEsMina() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEsBlanca() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEsNumero() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCambiarMarcada() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEstaMarcada() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCambiarVistaCasilla() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testNumCasilla() {
-		fail("Not yet implemented");
-	}
-
 }
