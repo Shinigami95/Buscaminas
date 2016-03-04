@@ -25,7 +25,6 @@ import packModelo.CasillaBlanca;
 import packModelo.CatalogoUsuarios;
 import packModelo.Reloj;
 import packModelo.Sesion;
-import packModelo.Usuario;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -172,7 +171,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 			panelMatriz.setBackground(Color.WHITE);
 			getBotonesMatriz();
 			for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
-				for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
+				for(int j=0;j<Buscaminas.getBuscaminas().getColumnas();j++){
 					panelMatriz.add(getCasilla(i, j));
 				}
 			}
@@ -182,9 +181,9 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	}
 	private JButton[][] getBotonesMatriz() {
 		if (botonMatriz == null) {
-			botonMatriz = new JButton[Buscaminas.getBuscaminas().getFilas()][Buscaminas.getBuscaminas().getColumans()];
+			botonMatriz = new JButton[Buscaminas.getBuscaminas().getFilas()][Buscaminas.getBuscaminas().getColumnas()];
 			for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
-				for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
+				for(int j=0;j<Buscaminas.getBuscaminas().getColumnas();j++){
 					getCasilla(i, j);
 				}
 			}
@@ -259,7 +258,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	
 	private void bloquearBotones(){
 		for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
-			for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
+			for(int j=0;j<Buscaminas.getBuscaminas().getColumnas();j++){
 				getCasilla(i, j).setEnabled(false);;
 			}
 		}
@@ -267,7 +266,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	
 	private void mostrarMina(){
 		for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
-			for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
+			for(int j=0;j<Buscaminas.getBuscaminas().getColumnas();j++){
 				if(Buscaminas.getBuscaminas().esMina(i, j)){
 					getCasilla(i, j).setFont(new Font("Tahoma", Font.BOLD, 11));
 					getCasilla(i, j).setBackground(Color.WHITE);
@@ -281,13 +280,13 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 		boolean terminado=false;
 		int cont=0;
 		for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
-			for(int j=0;j<Buscaminas.getBuscaminas().getColumans();j++){
+			for(int j=0;j<Buscaminas.getBuscaminas().getColumnas();j++){
 				if(!Buscaminas.getBuscaminas().casillaVista(i, j)){
 					cont++;
 				}
 			}
 		}
-		if(cont==Buscaminas.getBuscaminas().getColumans()*Sesion.getSesion().getNivel()){
+		if(cont==Buscaminas.getBuscaminas().getColumnas()*Sesion.getSesion().getNivel()){
 			terminado=true;
 		}
 		return terminado;

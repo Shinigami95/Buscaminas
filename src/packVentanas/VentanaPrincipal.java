@@ -4,9 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import packExcepciones.FicheroNoEncontradoException;
 import packModelo.Buscaminas;
-import packModelo.CatalogoUsuarios;
 import packModelo.Sesion;
 import packModelo.Usuario;
 

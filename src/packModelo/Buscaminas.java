@@ -32,7 +32,7 @@ public class Buscaminas {
 		return minas;
 	}
 	
-	public int getColumans(){
+	public int getColumnas(){
 		return matriz.getColumnas();
 	}
 	
