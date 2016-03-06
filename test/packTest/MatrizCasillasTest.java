@@ -29,17 +29,27 @@ public class MatrizCasillasTest {
 		System.out.println("Nivel 1");
 		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
 		System.out.println("");
-		int cont = 0;
+		int contM = 0;
+		int contB = 0;
+		int contN = 0;
 		for(int i = 0; i<MatrizCasillas.getMatrizCasillas().getFilas(); i++){
 			for(int j = 0; j<MatrizCasillas.getMatrizCasillas().getColumnas(); j++){
 				if(MatrizCasillas.getMatrizCasillas().esMina(i, j)){
-					cont++;
+					contM++;
+				}else if(MatrizCasillas.getMatrizCasillas().esBlanca(i, j)){
+					contB++;
+				}else if(MatrizCasillas.getMatrizCasillas().esNumero(i, j)){
+					contN++;
 				}
 			}
 		}
-		System.out.println("Hay " + cont + " minas");
+		System.out.println("Hay " + contM + " minas");
 		System.out.println("");
-		assertEquals(cont, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		int casillas = contM+contB+contN;
+		assertEquals(contM, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		assertEquals(casillas, MatrizCasillas.getMatrizCasillas().getColumnas()*MatrizCasillas.getMatrizCasillas().getFilas());
+		System.out.println("Hay " + casillas + " casillas");
+		System.out.println("");
 		//Nivel 2
 		nivel = 2;
 		Sesion.getSesion().jugarNivel(nivel);
@@ -48,17 +58,27 @@ public class MatrizCasillasTest {
 		System.out.println("Nivel 2");
 		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
 		System.out.println("");
-		cont = 0;
+		contM = 0;
+		contB = 0;
+		contN = 0;
 		for(int i = 0; i<MatrizCasillas.getMatrizCasillas().getFilas(); i++){
 			for(int j = 0; j<MatrizCasillas.getMatrizCasillas().getColumnas(); j++){
 				if(MatrizCasillas.getMatrizCasillas().esMina(i, j)){
-					cont++;
+					contM++;
+				}else if(MatrizCasillas.getMatrizCasillas().esBlanca(i, j)){
+					contB++;
+				}else if(MatrizCasillas.getMatrizCasillas().esNumero(i, j)){
+					contN++;
 				}
 			}
 		}
-		System.out.println("Hay " + cont + " minas");
+		System.out.println("Hay " + contM + " minas");
 		System.out.println("");
-		assertEquals(cont, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		casillas = contM+contB+contN;
+		assertEquals(contM, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		assertEquals(casillas, MatrizCasillas.getMatrizCasillas().getColumnas()*MatrizCasillas.getMatrizCasillas().getFilas());
+		System.out.println("Hay " + casillas + " casillas");
+		System.out.println("");
 		//Nivel 3
 		nivel = 3;
 		Sesion.getSesion().jugarNivel(nivel);
@@ -66,16 +86,26 @@ public class MatrizCasillasTest {
 		MatrizCasillas.getMatrizCasillas().llenarMatriz();
 		System.out.println("Nivel 3");
 		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
-		cont = 0;
+		System.out.println("");
+		contM = 0;
+		contB = 0;
+		contN = 0;
 		for(int i = 0; i<MatrizCasillas.getMatrizCasillas().getFilas(); i++){
 			for(int j = 0; j<MatrizCasillas.getMatrizCasillas().getColumnas(); j++){
 				if(MatrizCasillas.getMatrizCasillas().esMina(i, j)){
-					cont++;
+					contM++;
+				}else if(MatrizCasillas.getMatrizCasillas().esBlanca(i, j)){
+					contB++;
+				}else if(MatrizCasillas.getMatrizCasillas().esNumero(i, j)){
+					contN++;
 				}
 			}
 		}
-		System.out.println("Hay " + cont + " minas");
+		System.out.println("Hay " + contM + " minas");
 		System.out.println("");
-		assertEquals(cont, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		casillas = contM+contB+contN;
+		assertEquals(contM, nivel*MatrizCasillas.getMatrizCasillas().getColumnas());
+		assertEquals(casillas, MatrizCasillas.getMatrizCasillas().getColumnas()*MatrizCasillas.getMatrizCasillas().getFilas());
+		System.out.println("Hay " + casillas + " casillas");
 	}
 }

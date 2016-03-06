@@ -49,14 +49,16 @@ public class MatrizCasillas {
 		int[][] numMatrix=rellenarConCero();
 		int fil,col;
 		int i=0;
-		//Mientras las minas esten sin poner
+		//Mientras haya minas cuyos numeros alrededor esten sin calcular
 		while(i<columnas*Sesion.getSesion().getNivel()){
-			//La colocamos aleatoriamente
+			//Buscamos una casilla para poner mina
 			fil=(int) (Math.random()*filas-1);
 			col=(int) (Math.random()*columnas-1);
 			if(numMatrix[fil][col]!=-1){
+				//Ponemos la mina
 				numMatrix[fil][col]=-1;
 				i++;
+				//Calculamos los numeros de las casillas que rodean la mina
 				numMatrix=calcNum(numMatrix, fil-1, col-1);
 				numMatrix=calcNum(numMatrix, fil-1, col);
 				numMatrix=calcNum(numMatrix, fil-1, col+1);
