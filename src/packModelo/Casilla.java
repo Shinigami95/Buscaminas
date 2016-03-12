@@ -15,6 +15,18 @@ public class Casilla extends Observable{
 		columna=pCol;
 	}
 	
+	public void factoryCasilla(int pFil,int pCol,int pNum){
+		if(pNum==0){
+			CasillaBlanca casilla =new CasillaBlanca(pFil,pCol);
+		}
+		else if(pNum<0){
+			CasillaMina casilla=new CasillaMina(pFil, pCol);
+		}
+		else if(pNum>0){
+			CasillaNumero casilla=new CasillaNumero(pFil, pCol,pNum);
+		}
+	}
+	
 	public boolean getVista(){
 		return vista;
 	}
