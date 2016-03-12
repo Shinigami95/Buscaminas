@@ -380,7 +380,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	private void controlMouse(MouseEvent e,int pFil,int pCol){
 		if(!Buscaminas.getBuscaminas().getGameOver()){
 			if(SwingUtilities.isLeftMouseButton(e)){
-				esClicDerecho(pFil, pCol);
+					esClicDerecho(pFil, pCol);
 				}
 				else if(SwingUtilities.isRightMouseButton(e)){
 					esClicIzquierdo(pFil, pCol);

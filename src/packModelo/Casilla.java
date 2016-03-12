@@ -8,7 +8,7 @@ public class Casilla extends Observable{
 	private boolean vista=false;
 	private int fila;
 	private int columna;
-	private boolean marcada=false;
+
 	
 	public Casilla(int pFil,int pCol) {
 		fila=pFil;
@@ -33,7 +33,6 @@ public class Casilla extends Observable{
 	}
 	
 	public void cambiarMarca(){
-		marcada=!marcada;
 		Point coordenadas=new Point(fila, columna);
 		setChanged();
 		notifyObservers(coordenadas);
