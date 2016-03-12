@@ -35,6 +35,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingUtilities;
 
 import java.awt.GridLayout;
+import java.awt.Point;
 
 public class VentanaBuscaminas extends JFrame implements Observer{
 
@@ -254,6 +255,11 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 			String tiempo = Reloj.getGestor().tiempoAString();
 			getLblTiempo_1().setText("     "+tiempo);
 		}	
+		if (o instanceof Casilla){
+			Point p=(Point) arg;
+			cambiarMarca((int) p.getX(), (int) p.getY());
+			;
+		}
 	}
 	
 	private void bloquearBotones(){
@@ -354,18 +360,18 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	}
 	
 	private void cambiarMarca(int pFil,int pCol){
-		if(Buscaminas.getBuscaminas().cambiarMarcada(pFil, pCol)){
+		if(getCasilla(pFil, pCol).getText().equals("")){
 			getCasilla(pFil, pCol).setFont(new Font("Tahoma", Font.BOLD, 11));
 			getCasilla(pFil, pCol).setText("B");
 			getLabel_1().setText(""+Buscaminas.getBuscaminas().menosMinas());
-		}else{
+		}else if(getCasilla(pFil, pCol).getText().equals("B")){
 			getCasilla(pFil, pCol).setText("");
 			getLabel_1().setText(""+Buscaminas.getBuscaminas().masMinas());
 		}
 	}
 	
 	private void estaMarcada(int pFil,int pCol){
-		if(Buscaminas.getBuscaminas().estaMarcada(pFil,pCol)){
+		if(getCasilla(pFil, pCol).getText().equals("B")){
 			getLabel_1().setText(""+Buscaminas.getBuscaminas().masMinas());
 		}
 	}
@@ -374,30 +380,39 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	private void controlMouse(MouseEvent e,int pFil,int pCol){
 		if(!Buscaminas.getBuscaminas().getGameOver()){
 			if(SwingUtilities.isLeftMouseButton(e)){
-				if(Buscaminas.getBuscaminas().esMina(pFil, pCol)){
-					Reloj.getGestor().pausar();
-					mostrarMina();
-					bloquearBotones();
-					JOptionPane.showMessageDialog(null, "GAME OVER");
+				esClicDerecho(pFil, pCol);
 				}
-				else if(Buscaminas.getBuscaminas().esNumero(pFil, pCol)){
-					estaMarcada(pFil, pCol);
-					mostrarBoton(pFil,pCol);
-					Buscaminas.getBuscaminas().cambiarVistaCasilla(pFil, pCol);;
-				}
-				else if(Buscaminas.getBuscaminas().esBlanca(pFil, pCol)){
-					estaMarcada(pFil, pCol);
-					mostrarBlancas(pFil,pCol);
-				}
-				if(terminado()){
-					Reloj.getGestor().pausar();
-					finalizar();
-				}}
 				else if(SwingUtilities.isRightMouseButton(e)){
-					if(!Buscaminas.getBuscaminas().casillaVista(pFil, pCol))
-						cambiarMarca(pFil,pCol);
+					esClicIzquierdo(pFil, pCol);
 				}}}
 	
+	private void esClicDerecho(int pFil, int pCol){
+		if(Buscaminas.getBuscaminas().esMina(pFil, pCol)){
+			Reloj.getGestor().pausar();
+			mostrarMina();
+			bloquearBotones();
+			JOptionPane.showMessageDialog(null, "GAME OVER");
+		}
+		else if(Buscaminas.getBuscaminas().esNumero(pFil, pCol)){
+			estaMarcada(pFil, pCol);
+			mostrarBoton(pFil,pCol);
+			Buscaminas.getBuscaminas().cambiarVistaCasilla(pFil, pCol);;
+		}
+		else if(Buscaminas.getBuscaminas().esBlanca(pFil, pCol)){
+			estaMarcada(pFil, pCol);
+			mostrarBlancas(pFil,pCol);
+		}
+		if(terminado()){
+			Reloj.getGestor().pausar();
+			finalizar();
+		}}
+	
+	private void esClicIzquierdo(int pFil, int pCol){
+		if(!Buscaminas.getBuscaminas().casillaVista(pFil, pCol))
+			cambiarMarca(pFil,pCol);
 	}
+	}
+	
+	
 
 	

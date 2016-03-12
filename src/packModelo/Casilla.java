@@ -1,7 +1,9 @@
 package packModelo;
 
+import java.awt.Point;
+import java.util.Observable;
 
-public class Casilla {
+public class Casilla extends Observable{
 
 	private boolean vista=false;
 	private int fila;
@@ -27,16 +29,15 @@ public class Casilla {
 	
 	public void cambiarVista(){
 		vista=true;
+		
 	}
 	
-	
-	public boolean cambiarMarca(){
+	public void cambiarMarca(){
 		marcada=!marcada;
-		return marcada;
+		Point coordenadas=new Point(fila, columna);
+		setChanged();
+		notifyObservers(coordenadas);
 	}
-	
-	public boolean estaMarcada(){
-		return marcada;
-	}
+
 	
 }

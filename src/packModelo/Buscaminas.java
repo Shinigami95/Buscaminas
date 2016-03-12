@@ -83,12 +83,8 @@ public class Buscaminas {
 		return matriz.esNumero(pFil, pCol);
 	}
 	
-	public boolean cambiarMarcada(int pFil,int pCol){
-		return matriz.cambiarMarcada(pFil,pCol);
-	}
-	
-	public boolean estaMarcada(int pFil,int pCol){
-		return matriz.estaMarcada(pFil,pCol);
+	public void cambiarMarcada(int pFil,int pCol){
+		 matriz.cambiarMarcada(pFil,pCol);
 	}
 	
 	public boolean casillaVista(int pFil,int pCol){

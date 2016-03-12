@@ -191,13 +191,10 @@ public class MatrizCasillas {
 		else{return false;}
 	}
 	
-	public boolean cambiarMarcada(int pFil,int pCol){
-		return matriz[pFil][pCol].cambiarMarca();
+	public void cambiarMarcada(int pFil,int pCol){
+		matriz[pFil][pCol].cambiarMarca();
 	}
-	
-	public boolean estaMarcada(int pFil,int pCol){
-		return matriz[pFil][pCol].estaMarcada();
-	}
+
 	
 	public boolean casillaVista(int pFil,int pCol){
 		return matriz[pFil][pCol].getVista();
