@@ -28,7 +28,6 @@ public class MatrizCasillas {
 	
 	public void crearMatriz(){
 		if(Sesion.getSesion().getNivel()==1){
-			System.out.println("hola");
 			MatrizLvl1 m=new MatrizLvl1();
 			matriz=m.llenarMatriz();
 			filas=m.getFilas();

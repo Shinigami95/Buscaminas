@@ -25,7 +25,6 @@ public class MatrizCasillasTest {
 		int nivel = 1;
 		Sesion.getSesion().jugarNivel(nivel);
 		MatrizCasillas.getMatrizCasillas().crearMatriz();
-		MatrizCasillas.getMatrizCasillas().llenarMatriz();
 		System.out.println("Nivel 1");
 		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
 		System.out.println("");
@@ -54,7 +53,6 @@ public class MatrizCasillasTest {
 		nivel = 2;
 		Sesion.getSesion().jugarNivel(nivel);
 		MatrizCasillas.getMatrizCasillas().crearMatriz();
-		MatrizCasillas.getMatrizCasillas().llenarMatriz();
 		System.out.println("Nivel 2");
 		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
 		System.out.println("");
@@ -83,7 +81,6 @@ public class MatrizCasillasTest {
 		nivel = 3;
 		Sesion.getSesion().jugarNivel(nivel);
 		MatrizCasillas.getMatrizCasillas().crearMatriz();
-		MatrizCasillas.getMatrizCasillas().llenarMatriz();
 		System.out.println("Nivel 3");
 		System.out.println(MatrizCasillas.getMatrizCasillas().getFilas() + " filas, " + MatrizCasillas.getMatrizCasillas().getColumnas() + " columnas");
 		System.out.println("");
