@@ -54,7 +54,6 @@ public class Buscaminas {
 	public void crearMatriz(){
 		matriz = MatrizCasillas.getMatrizCasillas();
 		matriz.crearMatriz();
-		matriz.llenarMatriz();
 		setMinas(Sesion.getSesion().getNivel()*matriz.getColumnas());
 	}
 	
