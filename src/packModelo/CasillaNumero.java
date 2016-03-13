@@ -1,6 +1,6 @@
 package packModelo;
 
-public class CasillaNumero extends Casilla{
+public class CasillaNumero extends Casilla {
 	private int numero;
 	
 	public CasillaNumero(int pNum,int pFil,int pCol){
