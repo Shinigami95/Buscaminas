@@ -106,6 +106,7 @@ public class VentanaPrincipal extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 		setLocationRelativeTo(null);
+		setTitle("Ventana principal");
 	}
 	private JComboBox<String> getComboBox() {
 		if (comboBox == null) {

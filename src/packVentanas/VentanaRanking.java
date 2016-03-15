@@ -76,6 +76,7 @@ public class VentanaRanking extends JFrame {
 		);
 		contentPane.setLayout(gl_contentPane);
 		setLocationRelativeTo(null);
+		setTitle("Ranking");
 	}
 	private JLabel getLblRanking() {
 		if (lblRanking == null) {

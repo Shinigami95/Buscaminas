@@ -85,6 +85,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 		contentPane.add(getPanelMatriz(), BorderLayout.CENTER);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setTitle("Buscaminas");
 		addWindowListener(getControlador());
 	}
 	private JPanel getPanelRestart() {
@@ -380,13 +381,13 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	private void controlMouse(MouseEvent e,int pFil,int pCol){
 		if(!Buscaminas.getBuscaminas().getGameOver()){
 			if(SwingUtilities.isLeftMouseButton(e)){
-					esClicDerecho(pFil, pCol);
+					esClicIzquierdo(pFil, pCol);
 				}
 				else if(SwingUtilities.isRightMouseButton(e)){
-					esClicIzquierdo(pFil, pCol);
+					esClicDerecho(pFil, pCol);
 				}}}
 	
-	private void esClicDerecho(int pFil, int pCol){
+	private void esClicIzquierdo(int pFil, int pCol){
 		if(Buscaminas.getBuscaminas().esMina(pFil, pCol)){
 			Reloj.getGestor().pausar();
 			mostrarMina();
@@ -407,7 +408,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 			finalizar();
 		}}
 	
-	private void esClicIzquierdo(int pFil, int pCol){
+	private void esClicDerecho(int pFil, int pCol){
 		if(!Buscaminas.getBuscaminas().casillaVista(pFil, pCol))
 			cambiarMarca(pFil,pCol);
 	}

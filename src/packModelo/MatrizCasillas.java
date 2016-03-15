@@ -50,15 +50,22 @@ public class MatrizCasillas {
 		ArrayList<Casilla> devol=new ArrayList<Casilla>();
 		ArrayList<Casilla> mirar=new ArrayList<Casilla>();
 		int index=0;
+		//Cogemos una casilla
 		Casilla prueba=matriz[pFil][pCol];
 		int fil,col;
+		//La ponemos para mirarla
 		mirar.add(prueba);
+		//Recorremos dicho arraylist
 		while(recorrer(mirar,index)){
+			//Cogemos esa casilla para hacer operaciones con ella
 			prueba=mirar.get(index);
 			fil=prueba.getFila();
 			col=prueba.getColumna();
+			//Cambiamos su vista
 			matriz[fil][col].cambiarVista();
+			//Lista para devolver
 			devol.add(prueba);
+			//Vemos las casillas adyacentes de la casilla cogida
 			listas=mirarBlancas(devol, mirar, fil+1, col+1);
 			listas=mirarBlancas(devol, mirar, fil+1, col);
 			listas=mirarBlancas(devol, mirar, fil+1, col-1);
@@ -67,6 +74,7 @@ public class MatrizCasillas {
 			listas=mirarBlancas(devol, mirar, fil-1, col+1);
 			listas=mirarBlancas(devol, mirar, fil-1, col);
 			listas=mirarBlancas(devol, mirar, fil-1, col-1);
+			//Preparamos las casillas miradas y devolvemos las vistas
 			mirar=listas[0];
 			devol=listas[1];
 			index++;
