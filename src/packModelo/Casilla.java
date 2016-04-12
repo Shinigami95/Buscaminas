@@ -3,7 +3,7 @@ package packModelo;
 import java.awt.Point;
 import java.util.Observable;
 
-public class Casilla extends Observable{
+public abstract class Casilla extends Observable{
 
 	private boolean vista=false;
 	private int fila;
@@ -30,6 +30,10 @@ public class Casilla extends Observable{
 	public void cambiarVista(){
 		vista=true;
 		
+	}
+	
+	public String mostrar(){
+		return null;
 	}
 	
 	public void cambiarMarca(){

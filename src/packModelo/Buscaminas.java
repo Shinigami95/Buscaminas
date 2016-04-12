@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Buscaminas {
 	
 	private static Buscaminas miBuscaminas;
-	private MatrizCasillas matriz;
 	private int minas;
 	private boolean gameOver;
 	
@@ -33,11 +32,11 @@ public class Buscaminas {
 	}
 	
 	public int getColumnas(){
-		return matriz.getColumnas();
+		return Tablero.getTablero().getColumnas();
 	}
 	
 	public int getFilas(){
-		return matriz.getFilas();
+		return Tablero.getTablero().getFilas();
 	}
 	
 	public int masMinas(){
@@ -49,12 +48,10 @@ public class Buscaminas {
 		minas--;
 		return minas;
 	}
-	
 
 	public void crearMatriz(){
-		matriz = MatrizCasillas.getMatrizCasillas();
-		matriz.crearMatriz();
-		setMinas(Sesion.getSesion().getNivel()*matriz.getColumnas());
+		Tablero.getTablero().crearMatrizTablero();
+		setMinas(Sesion.getSesion().getNivel()*Tablero.getTablero().getColumnas());
 	}
 	
 	
@@ -63,39 +60,32 @@ public class Buscaminas {
 	}
 	
 	public ArrayList<Casilla> mostrarBlancas(int pFil,int pCol){
-		ArrayList<Casilla> devol=matriz.mostrarBlancas(pFil,pCol);
+		ArrayList<Casilla> devol=Tablero.getTablero().mostrarBlancas(pFil,pCol);
 		return devol;
 	}
 	
-	public boolean esMina(int pFil,int pCol){
-		if(matriz.esMina(pFil, pCol)){
-			gameOver=true;
-		}
-		return matriz.esMina(pFil, pCol);
+	public void gameOver(){
+		gameOver=true;
 	}
 	
-	public boolean esBlanca(int pFil,int pCol){
-		return matriz.esBlanca(pFil, pCol);
-	}
-	
-	public boolean esNumero(int pFil,int pCol){
-		return matriz.esNumero(pFil, pCol);
+	public String mostrar(int pFil,int pCol){
+		return Tablero.getTablero().mostrar(pFil, pCol);
 	}
 	
 	public void cambiarMarcada(int pFil,int pCol){
-		 matriz.cambiarMarcada(pFil,pCol);
+		Tablero.getTablero().cambiarMarcada(pFil,pCol);
 	}
 	
 	public boolean casillaVista(int pFil,int pCol){
-		return matriz.casillaVista(pFil,pCol);
+		return Tablero.getTablero().casillaVista(pFil,pCol);
 	}
 	
 	public void cambiarVistaCasilla(int pFil,int pCol){
-		 matriz.cambiarVistaCasilla(pFil,pCol);	
+		Tablero.getTablero().cambiarVistaCasilla(pFil,pCol);	
 		 }
 	
 	public int numCasilla(int pFil,int pCol){
-		return matriz.numCasilla(pFil, pCol);
+		return Tablero.getTablero().numCasilla(pFil, pCol);
 	}
 
 }

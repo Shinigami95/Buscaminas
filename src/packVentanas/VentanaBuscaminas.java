@@ -274,7 +274,7 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 	private void mostrarMina(){
 		for(int i=0;i<Buscaminas.getBuscaminas().getFilas();i++){
 			for(int j=0;j<Buscaminas.getBuscaminas().getColumnas();j++){
-				if(Buscaminas.getBuscaminas().esMina(i, j)){
+				if(Buscaminas.getBuscaminas().mostrar(i, j).equals("mina")){
 					getCasilla(i, j).setFont(new Font("Tahoma", Font.BOLD, 11));
 					getCasilla(i, j).setBackground(Color.WHITE);
 					getCasilla(i, j).setText("X");
@@ -388,18 +388,19 @@ public class VentanaBuscaminas extends JFrame implements Observer{
 				}}}
 	
 	private void esClicIzquierdo(int pFil, int pCol){
-		if(Buscaminas.getBuscaminas().esMina(pFil, pCol)){
+		if(Buscaminas.getBuscaminas().mostrar(pFil, pCol).equals("mina")){
 			Reloj.getGestor().pausar();
 			mostrarMina();
 			bloquearBotones();
+			Buscaminas.getBuscaminas().gameOver();
 			JOptionPane.showMessageDialog(null, "GAME OVER");
 		}
-		else if(Buscaminas.getBuscaminas().esNumero(pFil, pCol)){
+		else if(Buscaminas.getBuscaminas().mostrar(pFil, pCol).equals("num")){
 			estaMarcada(pFil, pCol);
 			mostrarBoton(pFil,pCol);
 			Buscaminas.getBuscaminas().cambiarVistaCasilla(pFil, pCol);;
 		}
-		else if(Buscaminas.getBuscaminas().esBlanca(pFil, pCol)){
+		else if(Buscaminas.getBuscaminas().mostrar(pFil, pCol).equals("blanca")){
 			estaMarcada(pFil, pCol);
 			mostrarBlancas(pFil,pCol);
 		}

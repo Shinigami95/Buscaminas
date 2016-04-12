@@ -11,5 +11,9 @@ public class CasillaNumero extends Casilla {
 	public int getNumero(){
 		return numero;
 	};
+	
+	public String mostrar(){
+		return "num";
+	}
 
 }
