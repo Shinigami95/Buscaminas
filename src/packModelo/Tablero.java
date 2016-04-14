@@ -3,19 +3,12 @@ package packModelo;
 import java.util.ArrayList;
 
 public class Tablero {
-	private static Tablero tablero;
+	private BuilderMatrizCasillas builder;
 	private Casilla[][] matriz;
 	private int filas;
 	private int columnas;
 
-	private Tablero(){}
-	
-	public static Tablero getTablero(){
-		if(tablero==null){
-			tablero=new Tablero();
-		}
-		return tablero;
-	}
+	public Tablero(){}
 	
 	public int getFilas(){
 		return filas;
@@ -26,10 +19,10 @@ public class Tablero {
 	}
 	
 	public void crearMatrizTablero(){
-		MatrizCasillas x=new MatrizCasillas();
-		matriz=x.crearMatriz();
-		filas=x.getFilas();
-		columnas=x.getColumnas();
+		builder=new BuilderMatrizCasillas();
+		matriz=builder.devolverBuilder();
+		filas=builder.getFilas();
+		columnas=builder.getColumnas();
 	}
 	
 	public ArrayList<Casilla> mostrarBlancas(int pFil,int pCol){

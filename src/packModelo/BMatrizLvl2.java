@@ -1,11 +1,12 @@
 package packModelo;
 
-public class MatrizLvl3 extends MatrizCasillas{
+public class BMatrizLvl2 extends BuilderMatrizCasillas{
 	
-	private int filas=12;
-	private int columnas=25;
+	private int filas=10;
+	private Casilla[][] matriz;
+	private int columnas=15;
 	
-	public MatrizLvl3(){
+	public BMatrizLvl2(){
 		super();
 	}
 	
@@ -17,11 +18,16 @@ public class MatrizLvl3 extends MatrizCasillas{
 		return columnas;
 	}
 	
-	public Casilla[][] llenarMatriz(){
-		int[][] numMatrix=crearMatrixNum();
-		Casilla[][] matriz=new Casilla[filas][columnas];
-		matriz=ponerCasillas(numMatrix);
+	public Casilla[][] devolverBuilder(){
+		llenarMatriz();
 		return matriz;
+	}
+	
+	public void llenarMatriz(){
+		int[][] numMatrix=crearMatrixNum();
+		matriz=new Casilla[filas][columnas];
+		matriz=ponerCasillas(numMatrix);
+		
 	}
 	
 	private int[][] crearMatrixNum(){
@@ -86,17 +92,10 @@ public class MatrizLvl3 extends MatrizCasillas{
 		Casilla[][] matriz=new Casilla[filas][columnas];
 		for(int i=0;i<=filas-1;i++){
 			for(int j=0;j<=columnas-1;j++){
-				if(pMatrix[i][j]==-1){	
-					matriz[i][j]=new CasillaMina(i,j);
-				}else if(pMatrix[i][j]>0){
-					matriz[i][j]=new CasillaNumero(pMatrix[i][j],i,j);
-				}
-				else if(pMatrix[i][j]==0){
-					matriz[i][j]=new CasillaBlanca(i,j);
-				}
+				matriz[i][j]=FactoryCasilla.getFactory().crearCasilla(pMatrix[i][j], i, j);
 			}
 		}
 		return matriz;
 	}
-	
+
 }

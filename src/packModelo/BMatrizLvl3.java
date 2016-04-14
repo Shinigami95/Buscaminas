@@ -1,11 +1,12 @@
 package packModelo;
 
-public class MatrizLvl2 extends MatrizCasillas{
+public class BMatrizLvl3 extends BuilderMatrizCasillas{
 	
-	private int filas=10;
-	private int columnas=15;
+	private int filas=12;
+	private Casilla[][] matriz;
+	private int columnas=25;
 	
-	public MatrizLvl2(){
+	public BMatrizLvl3(){
 		super();
 	}
 	
@@ -17,11 +18,16 @@ public class MatrizLvl2 extends MatrizCasillas{
 		return columnas;
 	}
 	
-	public Casilla[][] llenarMatriz(){
-		int[][] numMatrix=crearMatrixNum();
-		Casilla[][] matriz=new Casilla[filas][columnas];
-		matriz=ponerCasillas(numMatrix);
+	public Casilla[][] devolverBuilder(){
+		llenarMatriz();
 		return matriz;
+	}
+	
+	public void llenarMatriz(){
+		int[][] numMatrix=crearMatrixNum();
+		matriz=new Casilla[filas][columnas];
+		matriz=ponerCasillas(numMatrix);
+		
 	}
 	
 	private int[][] crearMatrixNum(){
@@ -98,5 +104,5 @@ public class MatrizLvl2 extends MatrizCasillas{
 		}
 		return matriz;
 	}
-
+	
 }

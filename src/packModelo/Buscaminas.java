@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Buscaminas {
 	
 	private static Buscaminas miBuscaminas;
+	private Tablero tablero;
 	private int minas;
 	private boolean gameOver;
 	
 	private Buscaminas() {
 		gameOver=false;
+		tablero=new Tablero();
 	}
 
 	public static Buscaminas getBuscaminas(){
@@ -32,11 +34,11 @@ public class Buscaminas {
 	}
 	
 	public int getColumnas(){
-		return Tablero.getTablero().getColumnas();
+		return tablero.getColumnas();
 	}
 	
 	public int getFilas(){
-		return Tablero.getTablero().getFilas();
+		return tablero.getFilas();
 	}
 	
 	public int masMinas(){
@@ -50,8 +52,8 @@ public class Buscaminas {
 	}
 
 	public void crearMatriz(){
-		Tablero.getTablero().crearMatrizTablero();
-		setMinas(Sesion.getSesion().getNivel()*Tablero.getTablero().getColumnas());
+		tablero.crearMatrizTablero();
+		setMinas(Sesion.getSesion().getNivel()*tablero.getColumnas());
 	}
 	
 	
@@ -60,7 +62,7 @@ public class Buscaminas {
 	}
 	
 	public ArrayList<Casilla> mostrarBlancas(int pFil,int pCol){
-		ArrayList<Casilla> devol=Tablero.getTablero().mostrarBlancas(pFil,pCol);
+		ArrayList<Casilla> devol=tablero.mostrarBlancas(pFil,pCol);
 		return devol;
 	}
 	
@@ -69,23 +71,23 @@ public class Buscaminas {
 	}
 	
 	public String mostrar(int pFil,int pCol){
-		return Tablero.getTablero().mostrar(pFil, pCol);
+		return tablero.mostrar(pFil, pCol);
 	}
 	
 	public void cambiarMarcada(int pFil,int pCol){
-		Tablero.getTablero().cambiarMarcada(pFil,pCol);
+		tablero.cambiarMarcada(pFil,pCol);
 	}
 	
 	public boolean casillaVista(int pFil,int pCol){
-		return Tablero.getTablero().casillaVista(pFil,pCol);
+		return tablero.casillaVista(pFil,pCol);
 	}
 	
 	public void cambiarVistaCasilla(int pFil,int pCol){
-		Tablero.getTablero().cambiarVistaCasilla(pFil,pCol);	
+		tablero.cambiarVistaCasilla(pFil,pCol);	
 		 }
 	
 	public int numCasilla(int pFil,int pCol){
-		return Tablero.getTablero().numCasilla(pFil, pCol);
+		return tablero.numCasilla(pFil, pCol);
 	}
 
 }

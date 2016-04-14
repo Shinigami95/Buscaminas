@@ -9,7 +9,6 @@ public abstract class Casilla extends Observable{
 	private int fila;
 	private int columna;
 
-	
 	public Casilla(int pFil,int pCol) {
 		fila=pFil;
 		columna=pCol;
@@ -29,7 +28,6 @@ public abstract class Casilla extends Observable{
 	
 	public void cambiarVista(){
 		vista=true;
-		
 	}
 	
 	public String mostrar(){
@@ -42,5 +40,4 @@ public abstract class Casilla extends Observable{
 		notifyObservers(coordenadas);
 	}
 
-	
 }
