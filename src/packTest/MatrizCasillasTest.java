@@ -15,7 +15,7 @@ public class MatrizCasillasTest {
 
 	@Before
 	public void setUp() throws Exception {
-		m = Tablero.getTablero();
+		m = new Tablero();
 	}
 
 	@After
