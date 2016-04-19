@@ -92,14 +92,7 @@ public class BMatrizLvl3 extends BuilderMatrizCasillas{
 		Casilla[][] matriz=new Casilla[filas][columnas];
 		for(int i=0;i<=filas-1;i++){
 			for(int j=0;j<=columnas-1;j++){
-				if(pMatrix[i][j]==-1){	
-					matriz[i][j]=new CasillaMina(i,j);
-				}else if(pMatrix[i][j]>0){
-					matriz[i][j]=new CasillaNumero(pMatrix[i][j],i,j);
-				}
-				else if(pMatrix[i][j]==0){
-					matriz[i][j]=new CasillaBlanca(i,j);
-				}
+				matriz[i][j]=FactoryCasilla.getFactory().crearCasilla(pMatrix[i][j], i, j);
 			}
 		}
 		return matriz;
